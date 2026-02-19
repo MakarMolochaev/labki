@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <utility>
 
 class CComplexVector {
 protected:
@@ -18,6 +17,10 @@ public:
     CComplexVector& operator=(const CComplexVector& other);
     CComplexVector& operator=(CComplexVector&& other) noexcept;
     
+    std::vector<std::pair<double, double>> GetRaw() const {
+        return data_;
+    }
+
     virtual ~CComplexVector() = default;
     
     virtual const void Output(std::string filename) = 0;
