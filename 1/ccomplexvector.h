@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 
+class CComplexVector0;
+class CComplexVector1;
+
 class CComplexVector {
 protected:
     std::vector<std::pair<double, double>> data_;
@@ -20,6 +23,9 @@ public:
     std::vector<std::pair<double, double>> GetRaw() const;
 
     virtual ~CComplexVector() = default;
+
+    friend CComplexVector0 operator+(const CComplexVector& left, const CComplexVector& right);
+    friend CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& right);
     
     virtual void Output(std::string filename) const = 0;
 };
@@ -34,8 +40,6 @@ public:
     
     ~CComplexVector0() override;
     
-    CComplexVector0 operator+(CComplexVector0& other) const;
-    CComplexVector0 operator-(CComplexVector0& other) const;
     double Dot(const CComplexVector0& other) const;
     void Output(std::string filename) const override;
 };
@@ -50,8 +54,6 @@ public:
     
     ~CComplexVector1() override;
     
-    CComplexVector1 operator+(CComplexVector1& other) const;
-    CComplexVector1 operator-(CComplexVector1& other) const;
     double Dot(const CComplexVector1& other) const;
     void Output(std::string filename) const override;
 };
