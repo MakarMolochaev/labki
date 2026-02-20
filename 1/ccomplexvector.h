@@ -28,6 +28,7 @@ public:
     friend CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& right);
     
     virtual void Output(std::string filename) const = 0;
+    double Dot(const CComplexVector& other) const;
 };
 
 // row output
@@ -40,7 +41,6 @@ public:
     
     ~CComplexVector0() override;
     
-    double Dot(const CComplexVector0& other) const;
     void Output(std::string filename) const override;
 };
 

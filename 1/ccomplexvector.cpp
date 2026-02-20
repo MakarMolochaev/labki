@@ -73,3 +73,14 @@ CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& righ
 
     return result;
 }
+
+double CComplexVector::Dot(const CComplexVector& other) const {
+    double result = 0;
+    
+    for (size_t i = 0; i < data_.size(); i++) {
+        result += (data_[i].first * other.data_[i].first);
+        result -= (data_[i].second * other.data_[i].second); 
+    }
+
+    return result;
+}

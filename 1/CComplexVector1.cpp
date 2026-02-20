@@ -10,17 +10,6 @@ CComplexVector1::CComplexVector1(const CComplexVector&& other) noexcept
 
 CComplexVector1::~CComplexVector1() = default;
 
-double CComplexVector1::Dot(const CComplexVector1& other) const {
-    double result = 0;
-    
-    for (size_t i = 0; i < data_.size(); i++) {
-        result += (data_[i].first * other.data_[i].first);
-        result -= (data_[i].second * other.data_[i].second); 
-    }
-
-    return result;
-}
-
 void CComplexVector1::Output(std::string filename) const {
     std::ofstream file(filename, std::ios::out);
     for (auto p : data_) {
