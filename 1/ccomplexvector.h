@@ -17,9 +17,7 @@ public:
     CComplexVector& operator=(const CComplexVector& other);
     CComplexVector& operator=(CComplexVector&& other) noexcept;
     
-    std::vector<std::pair<double, double>> GetRaw() const {
-        return data_;
-    }
+    std::vector<std::pair<double, double>> GetRaw() const;
 
     virtual ~CComplexVector() = default;
     

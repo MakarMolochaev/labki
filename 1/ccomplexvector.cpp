@@ -41,6 +41,10 @@ CComplexVector& CComplexVector::operator=(CComplexVector&& other) noexcept {
     return *this;
 }
 
+std::vector<std::pair<double, double>> CComplexVector::GetRaw() const {
+    return data_;
+}
+
 // CComplexVector0 implementation
 CComplexVector0::CComplexVector0(const CComplexVector& other) 
     : CComplexVector(other) {}
