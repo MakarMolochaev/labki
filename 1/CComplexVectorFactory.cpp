@@ -6,7 +6,11 @@
 #include <string>
 #include "CComplexVector.h"
 
+class Creator;
+
 class CComplexVectorFactory {
+private:
+        std::unordered_map<std::string, Creator> creators_;
 public:
     using Creator = std::function<std::unique_ptr<CComplexVector>(const std::vector<double>&)>;
 
@@ -19,9 +23,7 @@ public:
         };
     }
 
-    std::unique_ptr<CComplexVector> create(
-        std::string const& key,
-        const std::vector<double>& raw_data) const
+    std::unique_ptr<CComplexVector> create( std::string const& key, const std::vector<double>& raw_data) const
     {
         auto it = creators_.find(key);
         if (it == creators_.end()) {
@@ -30,19 +32,4 @@ public:
         return it->second(raw_data);
     }
 
-    bool has(std::string const& key) const {
-        return creators_.find(key) != creators_.end();
-    }
-
-    std::vector<std::string> availableKeys() const {
-        std::vector<std::string> keys;
-        keys.reserve(creators_.size());
-        for (auto const& [k, v] : creators_) {
-            keys.push_back(k);
-        }
-        return keys;
-    }
-
-private:
-    std::unordered_map<std::string, Creator> creators_;
 };
