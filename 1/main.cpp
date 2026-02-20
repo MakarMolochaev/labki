@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "ccomplexvector.h"
-#include "CCVTest.cpp"
+#include "CComplexVector.h"
+#include "CCVTests.h"
 
 void LoadFromFile(std::string filename) {
     std::ifstream file(filename);
@@ -32,8 +32,8 @@ void LoadFromFile(std::string filename) {
 }
 
 int main() {
-    RunTests();
-
+    CCVTests tests;
+    tests.RunTests();
 
     LoadFromFile("classes.txt");
 

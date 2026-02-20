@@ -23,7 +23,7 @@ public:
 
     virtual ~CComplexVector() = default;
     
-    virtual const void Output(std::string filename) = 0;
+    virtual void Output(std::string filename) const = 0;
 };
 
 // row output
@@ -39,7 +39,7 @@ public:
     CComplexVector0 operator+(CComplexVector0& other) const;
     CComplexVector0 operator-(CComplexVector0& other) const;
     double Dot(const CComplexVector0& other) const;
-    const void Output(std::string filename) override;
+    void Output(std::string filename) const override;
 };
 
 // column output
@@ -55,5 +55,5 @@ public:
     CComplexVector1 operator+(CComplexVector1& other) const;
     CComplexVector1 operator-(CComplexVector1& other) const;
     double Dot(const CComplexVector1& other) const;
-    const void Output(std::string filename) override;
+    void Output(std::string filename) const override;
 };

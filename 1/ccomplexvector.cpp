@@ -91,7 +91,7 @@ double CComplexVector0::Dot(const CComplexVector0& other) const {
     return result;
 }
 
-const void CComplexVector0::Output(std::string filename) {
+void CComplexVector0::Output(std::string filename) const {
     std::ofstream file(filename, std::ios::out);
     for (size_t i = 0; i < data_.size(); i++) {
         file << "(" << data_[i].first << " + " << data_[i].second << "i)";
@@ -152,7 +152,7 @@ double CComplexVector1::Dot(const CComplexVector1& other) const {
     return result;
 }
 
-const void CComplexVector1::Output(std::string filename) {
+void CComplexVector1::Output(std::string filename) const {
     std::ofstream file(filename, std::ios::out);
     for (auto p : data_) {
         file << "(" << p.first << " + " << p.second << "i)\n";
