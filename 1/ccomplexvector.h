@@ -38,9 +38,7 @@ public:
     
     CComplexVector0(const CComplexVector& other);
     CComplexVector0(const CComplexVector&& other) noexcept;
-    
-    ~CComplexVector0() override;
-    
+
     void Output(std::string filename) const override;
 };
 
@@ -52,8 +50,5 @@ public:
     CComplexVector1(const CComplexVector& other);
     CComplexVector1(const CComplexVector&& other) noexcept;
     
-    ~CComplexVector1() override;
-    
-    double Dot(const CComplexVector1& other) const;
     void Output(std::string filename) const override;
 };

@@ -45,7 +45,10 @@ int main() {
     //vec0.Output("test0.txt");
     //vec1.Output("test1.txt");
 
-    CComplexVector1 vec3(vec0);
+    CComplexVector0 vec30(vec0);
+    CComplexVector1 vec31(vec0);
+    vec30.Output("a0.txt");
+    vec31.Output("a1.txt");
     //vec3.Output("test3.txt");
     //(vec0 + vec67).Output("test67.txt");
     //std::cout << vec0.Dot(vec22);

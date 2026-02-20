@@ -8,8 +8,6 @@ CComplexVector1::CComplexVector1(const CComplexVector& other)
 CComplexVector1::CComplexVector1(const CComplexVector&& other) noexcept 
     : CComplexVector(other) {}
 
-CComplexVector1::~CComplexVector1() = default;
-
 void CComplexVector1::Output(std::string filename) const {
     std::ofstream file(filename, std::ios::out);
     for (auto p : data_) {
