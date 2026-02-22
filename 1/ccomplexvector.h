@@ -9,11 +9,13 @@ class CComplexVector1;
 class CComplexVector {
 protected:
     std::vector<std::pair<double, double>> data_;
+    std::string filename_;
 
 public:
     CComplexVector(size_t size);
     CComplexVector();
     CComplexVector(const std::vector<double>& data);
+    CComplexVector(const std::vector<double>& data, const std::string filename);
     CComplexVector(const CComplexVector& other);
     CComplexVector(const CComplexVector&& other) noexcept;
     
@@ -27,7 +29,7 @@ public:
     friend CComplexVector0 operator+(const CComplexVector& left, const CComplexVector& right);
     friend CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& right);
     
-    virtual void Output(std::string filename) const = 0;
+    virtual void Output(std::string filename = "") const = 0;
     double Dot(const CComplexVector& other) const;
 };
 
@@ -39,7 +41,7 @@ public:
     CComplexVector0(const CComplexVector& other);
     CComplexVector0(const CComplexVector&& other) noexcept;
 
-    void Output(std::string filename) const override;
+    void Output(std::string filename = "") const override;
 };
 
 // column output
@@ -50,5 +52,5 @@ public:
     CComplexVector1(const CComplexVector& other);
     CComplexVector1(const CComplexVector&& other) noexcept;
     
-    void Output(std::string filename) const override;
+    void Output(std::string filename = "") const override;
 };

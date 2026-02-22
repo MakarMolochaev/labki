@@ -1,15 +1,17 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <memory>
+#include <cstring>
 #include "CComplexVector.h"
 #include "CCVTests.h"
 #include "CCVFactory.h"
+#include "EasyCCVFactory.h"
 
-void LoadFromFile(std::string filename) {
+void LoadFromFile(std::string filename, std::vector<std::unique_ptr<CComplexVector>>& objects) {
     CComplexVectorFactory factory;
     factory.RegisterType<CComplexVector0>("0");
     factory.RegisterType<CComplexVector1>("1");
-
 
     std::ifstream file(filename);
     std::string line;
@@ -27,21 +29,78 @@ void LoadFromFile(std::string filename) {
             arr.push_back(a);
             arr.push_back(b);
         }
-        auto vec = factory.Create("0", arr);
+        auto vec = factory.Create(std::to_string(index), arr, fn);
         if (!vec) {
             std::cerr << "Unknown vector type: " << index << "\n";
             continue;
         }
-        vec->Output(fn);
+        objects.push_back(std::move(vec));
     }
 }
 
-int main() {
-    CCVTests tests;
-    tests.RunTests();
+size_t EasyLoadFromFile(std::string filename, CComplexVector** objects) {
+    EasyCCVFactory factory;
 
-    LoadFromFile("classes.txt");
+    std::ifstream file(filename);
+    std::string line;
 
+    size_t I = 0;
+    int index;
+    std::string fn;
+    while (std::getline(file, line))
+    {
+        std::istringstream iss(line);
+        iss >> index >> fn;
+
+        std::vector<double> arr;
+        double a, b;
+        while(iss >> a >> b) {
+            arr.push_back(a);
+            arr.push_back(b);
+        }
+        CComplexVector* vec = factory.Create(std::to_string(index).c_str(), arr, fn);
+        if (!vec) {
+            std::cerr << "Unknown vector type: " << index << "\n";
+            continue;
+        }
+        objects[I] = vec;
+        I++;
+    }
+    return I;
+}
+
+int main(int argc, char** argv) {
+    if(argc > 1 && strcmp(argv[1], "--test") == 0) {
+        CCVTests tests;
+        tests.RunTests();
+    }
+
+    std::cout << "\n";
+
+    // with easy factory
+
+    CComplexVector* objects[100];
+
+    size_t count = EasyLoadFromFile("classes.txt", objects);
+
+    for(int i = 0; i < count; i++) {
+        objects[i]->Output();
+    }
+
+    for (int i = 0; i < count; i++) {
+        delete objects[i];
+        objects[i] = nullptr;
+    }
+
+    /*
+    std::vector<std::unique_ptr<CComplexVector>> objects;
+
+    LoadFromFile("classes.txt", objects);
+
+    for(int i = 0; i < objects.size(); i++) {
+        objects[i]->Output();
+    }
+    */
     CComplexVector0 vec0({1,2,3,4,5,6});
     CComplexVector0 vec22({1,1,1,1,1,1});
     CComplexVector0 vec67({6,7,6,7,6,7});

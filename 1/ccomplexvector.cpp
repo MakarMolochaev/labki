@@ -17,6 +17,15 @@ CComplexVector::CComplexVector(const std::vector<double>& data) {
     }
 }
 
+CComplexVector::CComplexVector(const std::vector<double>& data, const std::string filename) : filename_(filename) {
+    if (data.size() % 2 != 0) {
+        throw std::runtime_error("wrong size");
+    }
+    for (size_t i = 0; i < data.size(); i += 2) {
+        data_.push_back(std::pair<double,double>(data[i], data[i+1]));
+    }
+}
+
 CComplexVector::CComplexVector(const CComplexVector& other) {
     for (auto p : other.data_) {
         data_.push_back(std::pair<double,double>(p.first, p.second));

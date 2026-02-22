@@ -9,6 +9,9 @@ CComplexVector0::CComplexVector0(const CComplexVector&& other) noexcept
     : CComplexVector(other) {}
 
 void CComplexVector0::Output(std::string filename) const {
+    if(filename == "") {
+        filename = filename_;
+    }
     std::ofstream file(filename, std::ios::out);
     for (size_t i = 0; i < data_.size(); i++) {
         file << "(" << data_[i].first << " + " << data_[i].second << "i)";
