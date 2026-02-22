@@ -38,13 +38,16 @@ void LoadFromFile(std::string filename, std::vector<std::unique_ptr<CComplexVect
     }
 }
 
-size_t EasyLoadFromFile(std::string filename, CComplexVector** objects) {
+size_t EasyLoadFromFile(std::string filename, CComplexVector**& objects) {
+    size_t cap = 8;
+    size_t I = 0;
+    objects = new CComplexVector*[cap];
+
     EasyCCVFactory factory;
 
     std::ifstream file(filename);
     std::string line;
 
-    size_t I = 0;
     int index;
     std::string fn;
     while (std::getline(file, line))
@@ -63,6 +66,15 @@ size_t EasyLoadFromFile(std::string filename, CComplexVector** objects) {
             std::cerr << "Unknown vector type: " << index << "\n";
             continue;
         }
+        if(I >= cap) {
+            cap *= 2;
+            CComplexVector** new_objects = new CComplexVector*[cap];
+            for(size_t i = 0; i < I; i++) {
+                new_objects[i] = objects[i];
+            }
+            delete [] objects;
+            objects = new_objects;
+        }
         objects[I] = vec;
         I++;
     }
@@ -79,7 +91,7 @@ int main(int argc, char** argv) {
 
     // with easy factory
 
-    CComplexVector* objects[100];
+    CComplexVector** objects;
 
     size_t count = EasyLoadFromFile("classes.txt", objects);
 
