@@ -3,12 +3,12 @@
 #include <sstream>
 #include "CComplexVector.h"
 #include "CCVTests.h"
-#include "CComplexVectorFactory.cpp"
+#include "CCVFactory.h"
 
 void LoadFromFile(std::string filename) {
     CComplexVectorFactory factory;
-    factory.registerType<CComplexVector0>("0");
-    factory.registerType<CComplexVector1>("1");
+    factory.RegisterType<CComplexVector0>("0");
+    factory.RegisterType<CComplexVector1>("1");
 
 
     std::ifstream file(filename);
@@ -27,7 +27,7 @@ void LoadFromFile(std::string filename) {
             arr.push_back(a);
             arr.push_back(b);
         }
-        auto vec = factory.create("0", arr);
+        auto vec = factory.Create("0", arr);
         if (!vec) {
             std::cerr << "Unknown vector type: " << index << "\n";
             continue;
