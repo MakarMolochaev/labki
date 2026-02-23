@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 
 class CComplexVector0;
 class CComplexVector1;
@@ -14,15 +13,15 @@ public:
 
 class CComplexVector {
 protected:
-    ComplexNumber* data_;
-    size_t size_;
-    std::string filename_;
+    size_t size_ = 0;
+    ComplexNumber* data_ = nullptr;
+    char* filename_ = nullptr;
 
 public:
     CComplexVector(size_t size);
     CComplexVector();
     CComplexVector(const double* data, const size_t count);
-    CComplexVector(const double* data, const size_t count, const std::string filename);
+    CComplexVector(const double* data, const size_t count, const char* filename);
     CComplexVector(const CComplexVector& other);
     CComplexVector(CComplexVector&& other) noexcept;
     
@@ -36,7 +35,7 @@ public:
     friend CComplexVector0 operator+(const CComplexVector& left, const CComplexVector& right);
     friend CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& right);
     
-    virtual void Output(std::string filename = "") const = 0;
+    virtual void Output(const char* filename = "") const = 0;
     ComplexNumber Dot(const CComplexVector& other) const;
 };
 
@@ -48,7 +47,7 @@ public:
     CComplexVector0(const CComplexVector& other);
     CComplexVector0(const CComplexVector&& other) noexcept;
 
-    void Output(std::string filename = "") const override;
+    void Output(const char* filename = "") const override;
 };
 
 // column output
@@ -59,5 +58,5 @@ public:
     CComplexVector1(const CComplexVector& other);
     CComplexVector1(const CComplexVector&& other) noexcept;
     
-    void Output(std::string filename = "") const override;
+    void Output(const char* filename = "") const override;
 };

@@ -10,7 +10,7 @@
 
 class EasyCCVFactory {
 public:
-    CComplexVector* Create(const char* key, const double* data, size_t count, const std::string filename) {
+    CComplexVector* Create(const char* key, const double* data, size_t count, const char* filename) {
         if(strcmp(key, "0") == 0) {
             return new CComplexVector0(data, count, filename);
         } else if(strcmp(key,"1") == 0) {

@@ -7,7 +7,7 @@
 #include "CCVTests.h"
 #include "EasyCCVFactory.h"
 
-size_t EasyLoadFromFile(std::string filename, CComplexVector**& objects) {
+size_t EasyLoadFromFile(const char* filename, CComplexVector**& objects) {
     size_t cap = 8;
     size_t I = 0;
     objects = new CComplexVector*[cap];
@@ -42,7 +42,7 @@ size_t EasyLoadFromFile(std::string filename, CComplexVector**& objects) {
             arr[count + 1] = b;
             count += 2;
         }
-        CComplexVector* vec = factory.Create(std::to_string(index).c_str(), arr, count, fn);
+        CComplexVector* vec = factory.Create(std::to_string(index).c_str(), arr, count, fn.c_str());
         if (!vec) {
             std::cerr << "Unknown vector type: " << index << "\n";
             continue;

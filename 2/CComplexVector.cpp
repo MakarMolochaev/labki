@@ -46,7 +46,7 @@ CComplexVector& CComplexVector::operator=(const CComplexVector& other) {
 CComplexVector& CComplexVector::operator=(CComplexVector&& other) noexcept {
     if (this != &other) {
         data_ = std::move(other.data_);
-        filename_ = other.filename_;
+        filename_ = std::move(other.filename_);
     }
     return *this;
 }
