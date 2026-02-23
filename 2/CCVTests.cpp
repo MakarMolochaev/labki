@@ -9,10 +9,10 @@ bool CCVTests::isEqual(double a, double b) {
 }
 
 void CCVTests::TestSum() {
-    double v1[] = {1,2,3,4,5,6,7,8};
-    double v2[] = {3,2,3,4,5,1,7,8};
-    CComplexVector0 vec0(v1, 8);
-    CComplexVector0 vec1(v2, 8);
+    std::vector<double> v1 = {1,2,3,4,5,6,7,8};
+    std::vector<double> v2 = {3,2,3,4,5,1,7,8};
+    CComplexVector0 vec0(v1);
+    CComplexVector0 vec1(v2);
 
     CComplexVector0 result = vec0 + vec1;
     std::vector<std::pair<double, double>> raw = result.GetRaw();
@@ -27,10 +27,10 @@ void CCVTests::TestSum() {
 }
 
 void CCVTests::TestDif() {
-    double v1[] = {1,2,3,4,5,6,7,8};
-    double v2[] = {3,2,3,4,5,1,7,8};
-    CComplexVector0 vec0(v1, 8);
-    CComplexVector0 vec1(v2, 8);
+    std::vector<double> v1 = {1,2,3,4,5,6,7,8};
+    std::vector<double> v2 = {3,2,3,4,5,1,7,8};
+    CComplexVector0 vec0(v1);
+    CComplexVector0 vec1(v2);
 
     CComplexVector0 result = vec0 - vec1;
     std::vector<std::pair<double, double>> raw = result.GetRaw();
@@ -45,13 +45,13 @@ void CCVTests::TestDif() {
 }
 
 void CCVTests::TestDot() {
-    double v1[] = {1,2,3,4,5,6,7,8};
-    double v2[] = {3,2,3,4,5,1,7,8};
-    CComplexVector0 vec0(v1, 8);
-    CComplexVector0 vec1(v2, 8);
+    std::vector<double> v1 = {1,2,3,4,5,6,7,8};
+    std::vector<double> v2 = {3,2,3,4,5,1,7,8};
+    CComplexVector0 vec0(v1);
+    CComplexVector0 vec1(v2);
 
-    ComplexNumber result = vec0.Dot(vec1);
-    if(!isEqual(result.Re, 176.0) || !isEqual(result.Im, 29.0)) {
+    double result = vec0.Dot(vec1);
+    if(!isEqual(result, -4.0)) {
         std::cout << "Dot test not passed!\n";
         return;
     }

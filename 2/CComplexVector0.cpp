@@ -13,9 +13,9 @@ void CComplexVector0::Output(std::string filename) const {
         filename = filename_;
     }
     std::ofstream file(filename, std::ios::out);
-    for (size_t i = 0; i < size_; i++) {
-        file << "(" << data_[i].Re << " + " << data_[i].Im << "i)";
-        if (i < size_ - 1) {
+    for (size_t i = 0; i < data_.size(); i++) {
+        file << "(" << data_[i].first << " + " << data_[i].second << "i)";
+        if (i < data_.size() - 1) {
             file << ", ";
         }
     }
