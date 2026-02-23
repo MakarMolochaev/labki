@@ -3,7 +3,7 @@
 #include "CComplexVector.h"
 
 CComplexVector::CComplexVector(size_t size) {
-    data_ = std::vector<ComplexNumber>(size);
+    data_.resize(size);
 }
 
 CComplexVector::CComplexVector() = default;
@@ -12,8 +12,9 @@ CComplexVector::CComplexVector(const std::vector<double>& data) {
     if (data.size() % 2 != 0) {
         throw std::runtime_error("wrong size");
     }
-    for (size_t i = 0; i < data.size(); i += 2) {
-        data_.push_back(ComplexNumber(data[i], data[i+1]));
+    data_.resize(data.size() / 2);
+    for (size_t i = 0; i < data.size() / 2; i++) {
+        data_[i] = ComplexNumber(data[2 * i], data[2 * i + 1]);
     }
 }
 
@@ -21,16 +22,13 @@ CComplexVector::CComplexVector(const std::vector<double>& data, const std::strin
     if (data.size() % 2 != 0) {
         throw std::runtime_error("wrong size");
     }
-    for (size_t i = 0; i < data.size(); i += 2) {
-        data_.push_back(ComplexNumber(data[i], data[i+1]));
+    data_.resize(data.size() / 2);
+    for (size_t i = 0; i < data.size() / 2; i++) {
+        data_[i] = ComplexNumber(data[2 * i], data[2 * i + 1]);
     }
 }
 
-CComplexVector::CComplexVector(const CComplexVector& other) {
-    for (auto p : other.data_) {
-        data_.push_back(ComplexNumber(p.Re, p.Im));
-    }
-}
+CComplexVector::CComplexVector(const CComplexVector& other) : data_(other.data_), filename_(other.filename_) {}
 
 CComplexVector::CComplexVector(CComplexVector&& other) noexcept 
     : data_(std::move(other.data_)), filename_(std::move(other.filename_)) {}
@@ -53,7 +51,7 @@ CComplexVector& CComplexVector::operator=(CComplexVector&& other) noexcept {
 
 std::vector<double> CComplexVector::GetRaw() const {
     std::vector<double> raw(data_.size() * 2);
-    for(int i = 0; i < data_.size(); i++) {
+    for(size_t i = 0; i < data_.size(); i++) {
         raw[2 * i] = data_[i].Re;
         raw[2 * i + 1] = data_[i].Im;
     }
@@ -91,7 +89,7 @@ CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& righ
 }
 
 ComplexNumber CComplexVector::Dot(const CComplexVector& other) const {
-    ComplexNumber result;
+    ComplexNumber result(0.0, 0.0);
     
     for (size_t i = 0; i < data_.size(); i++) {
         result.Re += (data_[i].Re * other.data_[i].Re) + (data_[i].Im * other.data_[i].Im);
