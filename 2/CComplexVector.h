@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class CComplexVector0;
 class CComplexVector1;
@@ -20,6 +21,7 @@ protected:
 
 public:
     CComplexVector(size_t size);
+    CComplexVector(size_t size, double fill);
     CComplexVector();
     CComplexVector(const std::vector<double>& data);
     CComplexVector(const std::vector<double>& data, const std::string filename);
@@ -38,6 +40,9 @@ public:
     
     virtual void Output(std::string filename = "") const = 0;
     ComplexNumber Dot(const CComplexVector& other) const;
+
+    void AddMany(const std::vector<std::unique_ptr<CComplexVector>>& vectors);
+    void AddManyWithOpenMP(const std::vector<std::unique_ptr<CComplexVector>>& vectors);
 };
 
 // row output

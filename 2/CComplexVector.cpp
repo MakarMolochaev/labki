@@ -1,9 +1,14 @@
 #include <fstream>
+#include <memory>
 #include <stdexcept>
 #include "CComplexVector.h"
 
 CComplexVector::CComplexVector(size_t size) {
     data_.resize(size);
+}
+
+CComplexVector::CComplexVector(size_t size, double fill) {
+    data_ = std::vector<ComplexNumber>(size, ComplexNumber(fill, fill));
 }
 
 CComplexVector::CComplexVector() = default;
@@ -97,4 +102,58 @@ ComplexNumber CComplexVector::Dot(const CComplexVector& other) const {
     }
 
     return result;
+}
+#include <iostream>
+
+void CComplexVector::AddManyWithOpenMP(const std::vector<std::unique_ptr<CComplexVector>>& vectors) {
+    if(vectors.size() == 0) {
+        return;
+    }
+
+    size_t m = data_.size();
+    for(const auto& v : vectors) {
+        if(!v || v->data_.size() != m) {
+            throw std::runtime_error("vectors must be equal size.");
+        }
+    }
+
+    #pragma omp parallel for simd
+    for (size_t i = 0; i < m; ++i) {
+        double re = 0.0;
+        double im = 0.0;
+    
+        for (size_t k = 0; k < vectors.size(); ++k) {
+            re += vectors[k]->data_[i].Re;
+            im += vectors[k]->data_[i].Im;
+        }
+    
+        data_[i].Re += re;
+        data_[i].Im += im;
+    }
+}
+
+void CComplexVector::AddMany(const std::vector<std::unique_ptr<CComplexVector>>& vectors) {
+    if(vectors.size() == 0) {
+        return;
+    }
+
+    size_t m = data_.size();
+    for(const auto& v : vectors) {
+        if(!v || v->data_.size() != m) {
+            throw std::runtime_error("vectors must be equal size.");
+        }
+    }
+
+    for (size_t i = 0; i < m; ++i) {
+        double re = 0.0;
+        double im = 0.0;
+    
+        for (size_t k = 0; k < vectors.size(); ++k) {
+            re += vectors[k]->data_[i].Re;
+            im += vectors[k]->data_[i].Im;
+        }
+    
+        data_[i].Re += re;
+        data_[i].Im += im;
+    }
 }
