@@ -15,11 +15,11 @@ void CCVTests::TestSum() {
     CComplexVector0 vec1(v2);
 
     CComplexVector0 result = vec0 + vec1;
-    std::vector<std::pair<double, double>> raw = result.GetRaw();
+    std::vector<double> raw = result.GetRaw();
 
-    for(int i = 0; i < 4; i++) {
-        if (!isEqual(raw[i].first, v1[2*i] + v2[2*i]) || !isEqual(raw[i].second, v1[2*i+1] + v2[2*i+1])) {
-            std::cout << "Sum test not passed! : Need: " << v1[2*i] + v2[2*i] << " + " << v1[2*i+1] + v2[2*i+1] << "i, have: " << raw[2*i].first << " + " << raw[2*i].second << "i.\n";
+    for(int i = 0; i < 8; i++) {
+        if (!isEqual(raw[i], v1[i] + v2[i])) {
+            std::cout << "Sum test not passed! : Need: " << v1[i] + v2[i] << ((i % 2 == 0) ? "" : "i") << ", have: " << raw[i] << ((i % 2 == 0) ? "" : "i") << ".\n";
             return;
         }
     }
@@ -33,11 +33,11 @@ void CCVTests::TestDif() {
     CComplexVector0 vec1(v2);
 
     CComplexVector0 result = vec0 - vec1;
-    std::vector<std::pair<double, double>> raw = result.GetRaw();
-    
-    for(int i = 0; i < 4; i++) {
-        if (!isEqual(raw[i].first, v1[2*i] - v2[2*i]) || !isEqual(raw[i].second, v1[2*i+1] - v2[2*i+1])) {
-            std::cout << "Dif test not passed! : Need: " << v1[2*i] - v2[2*i] << " + " << v1[2*i+1] - v2[2*i+1] << "i, have: " << raw[2*i].first << " + " << raw[2*i].second << "i.\n";
+    std::vector<double> raw = result.GetRaw();
+
+    for(int i = 0; i < 8; i++) {
+        if (!isEqual(raw[i], v1[i] - v2[i])) {
+            std::cout << "Dif test not passed! : Need: " << v1[i] - v2[i] << ((i % 2 == 0) ? "" : "i") << ", have: " << raw[i] << ((i % 2 == 0) ? "" : "i") << ".\n";
             return;
         }
     }
@@ -50,9 +50,9 @@ void CCVTests::TestDot() {
     CComplexVector0 vec0(v1);
     CComplexVector0 vec1(v2);
 
-    double result = vec0.Dot(vec1);
-    if(!isEqual(result, -4.0)) {
-        std::cout << "Dot test not passed!\n";
+    ComplexNumber result = vec0.Dot(vec1);
+    if(!isEqual(result.Re, 176.0) || !isEqual(result.Im, 29.0)) {
+        std::cout << "Dot test not passed!: " << "have: " << "(" << result.Re << " + " << result.Im << "i)" << "\n";
         return;
     }
     std::cout << "Dot test OK!\n";
@@ -60,6 +60,6 @@ void CCVTests::TestDot() {
 
 void CCVTests::RunTests() {
     TestSum();
-    TestDot();
     TestDif();
+    TestDot();
 }

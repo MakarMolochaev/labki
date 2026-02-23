@@ -7,7 +7,10 @@ class CComplexVector0;
 class CComplexVector1;
 
 struct ComplexNumber {
+public:
     double Re = 0, Im = 0;
+    ComplexNumber(double re, double im) : Re(re), Im(im) {}
+    ComplexNumber() : Re(0), Im(0) {}
 };
 
 class CComplexVector {

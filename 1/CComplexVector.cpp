@@ -124,11 +124,11 @@ CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& righ
 }
 
 ComplexNumber CComplexVector::Dot(const CComplexVector& other) const {
-    ComplexNumber result;
+    ComplexNumber result(0, 0);
     
     for (size_t i = 0; i < size_; i++) {
         result.Re += (data_[i].Re * other.data_[i].Re) + (data_[i].Im * other.data_[i].Im);
-        result.Im += (data_[i].Re * other.data_[i].Im) - (data_[i].Im * other.data_[i].Re);
+        result.Im += (data_[i].Im * other.data_[i].Re) - (data_[i].Re * other.data_[i].Im);
     }
 
     return result;

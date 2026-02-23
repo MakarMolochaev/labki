@@ -6,9 +6,16 @@
 class CComplexVector0;
 class CComplexVector1;
 
+struct ComplexNumber {
+public:
+    double Re = 0, Im = 0;
+    ComplexNumber(double re, double im) : Re(re), Im(im) {}
+    ComplexNumber() : Re(0), Im(0) {}
+};
+
 class CComplexVector {
 protected:
-    std::vector<std::pair<double, double>> data_;
+    std::vector<ComplexNumber> data_;
     std::string filename_;
 
 public:
@@ -22,7 +29,7 @@ public:
     CComplexVector& operator=(const CComplexVector& other);
     CComplexVector& operator=(CComplexVector&& other) noexcept;
     
-    std::vector<std::pair<double, double>> GetRaw() const;
+    std::vector<double> GetRaw() const;
 
     virtual ~CComplexVector() = default;
 
@@ -30,7 +37,7 @@ public:
     friend CComplexVector0 operator-(const CComplexVector& left, const CComplexVector& right);
     
     virtual void Output(std::string filename = "") const = 0;
-    double Dot(const CComplexVector& other) const;
+    ComplexNumber Dot(const CComplexVector& other) const;
 };
 
 // row output

@@ -52,7 +52,7 @@ void CCVTests::TestDot() {
 
     ComplexNumber result = vec0.Dot(vec1);
     if(!isEqual(result.Re, 176.0) || !isEqual(result.Im, 29.0)) {
-        std::cout << "Dot test not passed!\n";
+        std::cout << "Dot test not passed!: " << "have: " << "(" << result.Re << " + " << result.Im << "i)" << "\n";
         return;
     }
     std::cout << "Dot test OK!\n";
@@ -60,6 +60,6 @@ void CCVTests::TestDot() {
 
 void CCVTests::RunTests() {
     TestSum();
-    TestDot();
     TestDif();
+    TestDot();
 }

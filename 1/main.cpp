@@ -63,12 +63,13 @@ size_t EasyLoadFromFile(std::string filename, CComplexVector**& objects) {
 }
 
 int main(int argc, char** argv) {
+    std::cout << "\n";
     if(argc > 1 && strcmp(argv[1], "--test") == 0) {
         CCVTests tests;
         tests.RunTests();
+        return 0;
     }
 
-    std::cout << "\n";
 
     // with easy factory
 

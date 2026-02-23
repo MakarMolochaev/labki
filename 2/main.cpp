@@ -6,7 +6,6 @@
 #include "CComplexVector.h"
 #include "CCVTests.h"
 #include "CCVFactory.h"
-#include "EasyCCVFactory.h"
 
 void LoadFromFile(std::string filename, std::vector<std::unique_ptr<CComplexVector>>& objects) {
     CComplexVectorFactory factory;
@@ -39,12 +38,12 @@ void LoadFromFile(std::string filename, std::vector<std::unique_ptr<CComplexVect
 }
 
 int main(int argc, char** argv) {
+    std::cout << "\n";
     if(argc > 1 && strcmp(argv[1], "--test") == 0) {
         CCVTests tests;
         tests.RunTests();
+        return 0;
     }
-
-    std::cout << "\n";
 
     
     std::vector<std::unique_ptr<CComplexVector>> objects;
