@@ -84,11 +84,11 @@ CComplexVector::~CComplexVector() {
     delete [] data_;
 }
 
-std::vector<std::pair<double, double>> CComplexVector::GetRaw() const {
-    std::vector<std::pair<double, double>> result(size_);
+double* CComplexVector::GetRaw() const {
+    double* result = new double[size_];
     for(int i = 0; i < size_; i++) {
-        result[i].first = data_[i].Re;
-        result[i].second = data_[i].Im;
+        result[2 * i] = data_[i].Re;
+        result[2 * i + 1] = data_[i].Im;
     }
     return result;
 }

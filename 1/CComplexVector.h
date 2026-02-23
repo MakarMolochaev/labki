@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string>
-#include <vector>
 
 class CComplexVector0;
 class CComplexVector1;
@@ -30,7 +29,7 @@ public:
     CComplexVector& operator=(const CComplexVector& other);
     CComplexVector& operator=(CComplexVector&& other) noexcept;
     
-    std::vector<std::pair<double, double>> GetRaw() const;
+    double* GetRaw() const;
 
     virtual ~CComplexVector();
 

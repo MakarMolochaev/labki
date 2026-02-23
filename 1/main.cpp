@@ -70,9 +70,6 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-
-    // with easy factory
-
     CComplexVector** objects;
 
     size_t count = EasyLoadFromFile("classes.txt", objects);

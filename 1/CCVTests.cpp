@@ -15,14 +15,15 @@ void CCVTests::TestSum() {
     CComplexVector0 vec1(v2, 8);
 
     CComplexVector0 result = vec0 + vec1;
-    std::vector<std::pair<double, double>> raw = result.GetRaw();
+    double* raw = result.GetRaw();
 
-    for(int i = 0; i < 4; i++) {
-        if (!isEqual(raw[i].first, v1[2*i] + v2[2*i]) || !isEqual(raw[i].second, v1[2*i+1] + v2[2*i+1])) {
-            std::cout << "Sum test not passed! : Need: " << v1[2*i] + v2[2*i] << " + " << v1[2*i+1] + v2[2*i+1] << "i, have: " << raw[2*i].first << " + " << raw[2*i].second << "i.\n";
+    for(int i = 0; i < 8; i++) {
+        if (!isEqual(raw[i], v1[i] + v2[i])) {
+            std::cout << "Sum test not passed! : Need: " << v1[i] + v2[i] << ((i % 2 == 0) ? "" : "i") << ", have: " << raw[i] << ((i % 2 == 0) ? "" : "i") << ".\n";
             return;
         }
     }
+    delete [] raw;
     std::cout << "Sum test OK!\n";
 }
 
@@ -33,14 +34,15 @@ void CCVTests::TestDif() {
     CComplexVector0 vec1(v2, 8);
 
     CComplexVector0 result = vec0 - vec1;
-    std::vector<std::pair<double, double>> raw = result.GetRaw();
-    
-    for(int i = 0; i < 4; i++) {
-        if (!isEqual(raw[i].first, v1[2*i] - v2[2*i]) || !isEqual(raw[i].second, v1[2*i+1] - v2[2*i+1])) {
-            std::cout << "Dif test not passed! : Need: " << v1[2*i] - v2[2*i] << " + " << v1[2*i+1] - v2[2*i+1] << "i, have: " << raw[2*i].first << " + " << raw[2*i].second << "i.\n";
+    double* raw = result.GetRaw();
+
+    for(int i = 0; i < 8; i++) {
+        if (!isEqual(raw[i], v1[i] - v2[i])) {
+            std::cout << "Dif test not passed! : Need: " << v1[i] - v2[i] << ((i % 2 == 0) ? "" : "i") << ", have: " << raw[i] << ((i % 2 == 0) ? "" : "i") << ".\n";
             return;
         }
     }
+    delete [] raw;
     std::cout << "Dif test OK!\n";
 }
 

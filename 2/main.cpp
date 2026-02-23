@@ -45,7 +45,6 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    
     std::vector<std::unique_ptr<CComplexVector>> objects;
 
     LoadFromFile("classes.txt", objects);
@@ -53,5 +52,6 @@ int main(int argc, char** argv) {
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->Output();
     }
+    
     return 0;
 }
