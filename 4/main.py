@@ -28,6 +28,6 @@ if __name__ == '__main__':
         print(f"error: {e}")
         sys.exit(1)
     finally:
-        img1.close()
-        img2.close()
-        result_image.close()
+        for img in (img1, img2, result_image):
+            if img is not None:
+                img.close()
