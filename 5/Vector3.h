@@ -1,0 +1,52 @@
+#pragma once
+#include <cmath>
+
+class Vector3 {
+public:
+    float X = 1, Y = 1, Z = 1;
+    Vector3() {}
+    Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
+
+    float Length() const {
+        return std::sqrt(X * X + Y * Y + Z * Z);
+    }
+
+    float SquareLength() const {
+        return X * X + Y * Y + Z * Z;
+    }
+
+    Vector3 operator+(const Vector3& other) const {
+        return Vector3(X + other.X, Y + other.Y, Z + other.Z);
+    }
+
+    Vector3 operator-(const Vector3& other) const {
+        return Vector3(X - other.X, Y - other.Y, Z - other.Z);
+    }
+
+    Vector3 operator*(const float mult) const {
+        return Vector3(X * mult, Y * mult, Z * mult);
+    }
+
+    Vector3 Normalized() const {
+        float length = Length();
+        return Vector3(X / length, Y / length, Z / length);
+    }
+
+    Vector3 Normalize() {
+        float length = Length();
+        X /= length;
+        Y /= length;
+        Z /= length;
+    }
+
+    static float Dot(const Vector3& a, const Vector3& b);
+    static float Cos(const Vector3& a, const Vector3& b);
+};
+
+float Vector3::Dot(const Vector3& a, const Vector3& b) {
+    return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+}
+
+float Vector3::Cos(const Vector3& a, const Vector3& b) {
+    return Vector3::Dot(a, b) / (a.Length() * b.Length());
+}
