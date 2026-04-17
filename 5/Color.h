@@ -6,13 +6,9 @@ public:
     Color() {}
     Color(float r, float g, float b) : R(r), G(g), B(b) {}
 
+    Color operator+(const Color& other) const {
+        return Color(R + other.R, G + other.G, B + other.B);
+    }
+
     static Color Lerp(Color& a, Color& b, float t);
 };
-
-Color Color::Lerp(Color& a, Color& b, float t) {
-    return Color(
-        a.R + (b.R - a.R) * t,
-        a.G + (b.G - a.G) * t,
-        a.B + (b.B - a.B) * t
-    );
-}

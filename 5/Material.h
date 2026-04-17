@@ -8,7 +8,7 @@ public:
     Color specularColor;
     float glossy = 2;
 
-    Material();
+    Material() = default;
 
     Material(Color diffuse){
         diffuseColor = diffuse;

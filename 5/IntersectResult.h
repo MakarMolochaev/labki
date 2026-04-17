@@ -6,9 +6,9 @@ public:
     bool intersect = false;
     Vector3 point;
     Vector3 normal;
-    float T = 0;
+    float t = 0;
 
-    IntersectResult(bool result) : intersect(intersect) {}
+    IntersectResult(bool result) : intersect(result) {}
 
-    IntersectResult(bool result, Vector3 point, Vector3 normal, float T) : intersect(result), point(point), normal(normal), T(T) {}
+    IntersectResult(bool result, Vector3 point, Vector3 normal, float t) : intersect(result), point(point), normal(normal), t(t) {}
 };

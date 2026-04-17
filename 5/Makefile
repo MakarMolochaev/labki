@@ -153,6 +153,30 @@ Sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Sphere.cpp.s
 .PHONY : Sphere.cpp.s
 
+Vector3.o: Vector3.cpp.o
+.PHONY : Vector3.o
+
+# target to build an object file
+Vector3.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Vector3.cpp.o
+.PHONY : Vector3.cpp.o
+
+Vector3.i: Vector3.cpp.i
+.PHONY : Vector3.i
+
+# target to preprocess a source file
+Vector3.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Vector3.cpp.i
+.PHONY : Vector3.cpp.i
+
+Vector3.s: Vector3.cpp.s
+.PHONY : Vector3.s
+
+# target to generate assembly for a file
+Vector3.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Vector3.cpp.s
+.PHONY : Vector3.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -189,6 +213,9 @@ help:
 	@echo "... Sphere.o"
 	@echo "... Sphere.i"
 	@echo "... Sphere.s"
+	@echo "... Vector3.o"
+	@echo "... Vector3.i"
+	@echo "... Vector3.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

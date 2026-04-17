@@ -7,7 +7,7 @@ class Object {
 public:
     Vector3 position;
     Material material;
-    Object();
+    Object() = default;
 
     virtual IntersectResult Intersect(Ray ray) const = 0;
     virtual ~Object() = default;

@@ -8,11 +8,12 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native -ffast-math")
 
 find_package(OpenMP REQUIRED)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 set(SOURCES
     main.cpp
     Sphere.cpp
+    Vector3.cpp
 )
 
 add_executable(program ${SOURCES})

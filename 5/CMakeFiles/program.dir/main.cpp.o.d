@@ -149,6 +149,22 @@ CMakeFiles/program.dir/main.cpp.o: /home/makar/Projects/labki/5/main.cpp \
  /usr/include/c++/15.2.1/bits/stl_vector.h \
  /usr/include/c++/15.2.1/bits/stl_bvector.h \
  /usr/include/c++/15.2.1/bits/vector.tcc /usr/include/c++/15.2.1/limits \
+ /usr/include/c++/15.2.1/memory \
+ /usr/include/c++/15.2.1/bits/stl_tempbuf.h \
+ /usr/include/c++/15.2.1/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/15.2.1/bits/align.h \
+ /usr/include/c++/15.2.1/bits/unique_ptr.h \
+ /usr/include/c++/15.2.1/bits/shared_ptr.h \
+ /usr/include/c++/15.2.1/bits/shared_ptr_base.h \
+ /usr/include/c++/15.2.1/bits/allocated_ptr.h \
+ /usr/include/c++/15.2.1/ext/aligned_buffer.h \
+ /usr/include/c++/15.2.1/ext/concurrence.h \
+ /usr/include/c++/15.2.1/bits/shared_ptr_atomic.h \
+ /usr/include/c++/15.2.1/bits/atomic_base.h \
+ /usr/include/c++/15.2.1/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/15.2.1/backward/auto_ptr.h \
+ /usr/include/c++/15.2.1/pstl/glue_memory_defs.h \
+ /usr/include/c++/15.2.1/pstl/execution_defs.h \
  /home/makar/Projects/labki/5/Object.h \
  /home/makar/Projects/labki/5/Material.h \
  /home/makar/Projects/labki/5/Color.h /usr/include/c++/15.2.1/cmath \
@@ -173,4 +189,12 @@ CMakeFiles/program.dir/main.cpp.o: /home/makar/Projects/labki/5/main.cpp \
  /usr/include/c++/15.2.1/tr1/riemann_zeta.tcc \
  /home/makar/Projects/labki/5/IntersectResult.h \
  /home/makar/Projects/labki/5/Vector3.h \
- /home/makar/Projects/labki/5/Ray.h /usr/include/c++/15.2.1/math.h
+ /home/makar/Projects/labki/5/Ray.h /usr/include/c++/15.2.1/math.h \
+ /home/makar/Projects/labki/5/BMPWriter.h /usr/include/c++/15.2.1/fstream \
+ /usr/include/c++/15.2.1/bits/codecvt.h \
+ /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/15.2.1/bits/fstream.tcc /usr/include/c++/15.2.1/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/bits/stdint-least.h
