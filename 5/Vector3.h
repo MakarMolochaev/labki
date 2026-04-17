@@ -41,4 +41,5 @@ public:
 
     static float Dot(const Vector3& a, const Vector3& b);
     static float Cos(const Vector3& a, const Vector3& b);
+    static float Dist(const Vector3& a, const Vector3& b);
 };

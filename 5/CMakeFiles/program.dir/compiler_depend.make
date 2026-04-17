@@ -344,6 +344,7 @@ CMakeFiles/program.dir/main.cpp.o: main.cpp \
   IntersectResult.h \
   Material.h \
   Object.h \
+  PointLight.h \
   Ray.h \
   Scene.h \
   Vector3.h \
@@ -679,6 +680,8 @@ CMakeFiles/program.dir/Sphere.cpp.o:
 /usr/include/c++/15.2.1/ext/aligned_buffer.h:
 
 /usr/include/c++/15.2.1/cstdint:
+
+/usr/include/c++/15.2.1/bits/vector.tcc:
 
 /usr/include/c++/15.2.1/bits/postypes.h:
 
@@ -1182,9 +1185,9 @@ CMakeFiles/program.dir/main.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h:
 
-/usr/include/c++/15.2.1/bits/vector.tcc:
-
 BMPWriter.h:
+
+PointLight.h:
 
 Scene.h:
 

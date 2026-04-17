@@ -13,12 +13,18 @@ public:
     Material(Color diffuse){
         diffuseColor = diffuse;
         specularColor = Color(0, 0, 0);
-        glossy = 2;
+        glossy = 8;
+    }
+
+    Material(Color diffuse, float glossiness){
+        diffuseColor = diffuse;
+        specularColor = Color(1, 1, 1);
+        glossy = glossiness;
     }
 
     Material(Color diffuse, Color specular, float glossiness) {
         diffuseColor = diffuse;
         specularColor = specular;
-        glossy = std::fmin(std::fmax(2.0, glossiness), 256);
+        glossy = std::min(std::max(2.0f, glossiness), 256.0f);
     }
 };
