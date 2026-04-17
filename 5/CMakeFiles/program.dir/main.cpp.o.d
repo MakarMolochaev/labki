@@ -165,6 +165,7 @@ CMakeFiles/program.dir/main.cpp.o: /home/makar/Projects/labki/5/main.cpp \
  /usr/include/c++/15.2.1/backward/auto_ptr.h \
  /usr/include/c++/15.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/15.2.1/pstl/execution_defs.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/omp.h \
  /home/makar/Projects/labki/5/Object.h \
  /home/makar/Projects/labki/5/Material.h \
  /home/makar/Projects/labki/5/Color.h /usr/include/c++/15.2.1/cmath \

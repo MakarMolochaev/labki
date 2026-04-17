@@ -3,12 +3,12 @@
 
 class IntersectResult {
 public:
-    bool intersect = false;
+    bool hit = false;
     Vector3 point;
     Vector3 normal;
     float t = 0;
 
-    IntersectResult(bool result) : intersect(result) {}
+    IntersectResult(bool hit) : hit(hit) {}
 
-    IntersectResult(bool result, Vector3 point, Vector3 normal, float t) : intersect(result), point(point), normal(normal), t(t) {}
+    IntersectResult(bool hit, Vector3 point, Vector3 normal, float t) : hit(hit), point(point), normal(normal), t(t) {}
 };

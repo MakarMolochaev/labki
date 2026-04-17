@@ -602,6 +602,7 @@ CMakeFiles/program.dir/main.cpp.o: main.cpp \
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
+  /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/omp.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdarg.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stddef.h \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h
@@ -662,6 +663,8 @@ CMakeFiles/program.dir/Sphere.cpp.o:
 /usr/lib/Scrt1.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/stdint.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/omp.h:
 
 /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++io.h:
 
