@@ -1,4 +1,4 @@
-#include "Shape.h"
+#include "Object.h"
 #include "Vector3.h"
 #include "Ray.h"
 

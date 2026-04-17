@@ -6,7 +6,15 @@ class Material {
 public:
     Color diffuseColor;
     Color specularColor;
-    float glossy;
+    float glossy = 2;
+
+    Material();
+
+    Material(Color diffuse){
+        diffuseColor = diffuse;
+        specularColor = Color(0, 0, 0);
+        glossy = 2;
+    }
 
     Material(Color diffuse, Color specular, float glossiness) {
         diffuseColor = diffuse;

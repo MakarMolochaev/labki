@@ -3,17 +3,17 @@
 #include "IntersectResult.h"
 #include "Ray.h"
 
-class Shape {
+class Object {
 public:
     Vector3 position;
     Material material;
-    Shape();
+    Object();
 
     virtual IntersectResult Intersect(Ray ray) const = 0;
-    virtual ~Shape() = default;
+    virtual ~Object() = default;
 };
 
-class Sphere : public Shape {
+class Sphere : public Object {
 public:
     float radius;
     Sphere(Vector3 pos, float radius, Material mat) {
