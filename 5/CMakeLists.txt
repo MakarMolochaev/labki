@@ -12,8 +12,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 set(SOURCES
     main.cpp
-    Sphere.cpp
     Vector3.cpp
+    Sphere.cpp
+    Plane.cpp
 )
 
 add_executable(program ${SOURCES})

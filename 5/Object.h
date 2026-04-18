@@ -24,3 +24,15 @@ public:
 
     IntersectResult Intersect(Ray ray) const override;
 };
+
+class Plane : public Object {
+public:
+    float size;
+    Plane(Vector3 pos, float size, Material mat) {
+        this->size = size;
+        position = pos;
+        material = mat;
+    }
+
+    IntersectResult Intersect(Ray ray) const override;
+};

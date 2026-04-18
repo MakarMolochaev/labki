@@ -30,41 +30,44 @@ struct BMPInfoHeader {
 };
 #pragma pack(pop)
 
-int WriteBMP(unsigned width, unsigned height, std::vector<Color> colorBuffer) {
-    BMPFileHeader fileHeader;
-    BMPInfoHeader infoHeader;
-    
-    infoHeader.biWidth = width;
-    infoHeader.biHeight = height;
+int WriteBMP(unsigned width, unsigned height, const std::vector<Color>& colorBuffer) {
+    if (colorBuffer.size() != static_cast<size_t>(width) * height) {
+        return -1;
+    }
 
-    int rowStride = (width * 3 + 3) & ~3;
-    int imageDataSize = rowStride * height;
-    
-    fileHeader.bfSize = sizeof(BMPFileHeader) + sizeof(BMPInfoHeader) + imageDataSize;
-    infoHeader.biSizeImage = imageDataSize;
+    int rowStride = ((width * 3 + 3) & ~3);
+    size_t imageDataSize = static_cast<size_t>(rowStride) * height;
 
-    std::ofstream outFile("output.bmp", std::ios::binary);
-    
-    outFile.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));
-    outFile.write(reinterpret_cast<const char*>(&infoHeader), sizeof(infoHeader));
+    BMPFileHeader fileHeader{};
+    BMPInfoHeader infoHeader{};
 
-    for (int y = 0; y < height; ++y) {
-        for (int x = 0; x < width; ++x) {
-            uint8_t red   = (uint8_t)(colorBuffer[y * width + x].R * 255);
-            uint8_t green = (uint8_t)(colorBuffer[y * width + x].G * 255);
-            uint8_t blue  = (uint8_t)(colorBuffer[y * width + x].B * 255);
-            
-            outFile.write(reinterpret_cast<const char*>(&blue), 1);
-            outFile.write(reinterpret_cast<const char*>(&green), 1);
-            outFile.write(reinterpret_cast<const char*>(&red), 1);
-        }
-        uint8_t padding[3] = {0, 0, 0};
-        int paddingSize = rowStride - width * 3;
-        if (paddingSize > 0) {
-            outFile.write(reinterpret_cast<const char*>(padding), paddingSize);
+    infoHeader.biWidth = static_cast<int32_t>(width);
+    infoHeader.biHeight = static_cast<int32_t>(height);
+    fileHeader.bfSize = sizeof(BMPFileHeader) + sizeof(BMPInfoHeader) + static_cast<uint32_t>(imageDataSize);
+    infoHeader.biSizeImage = static_cast<uint32_t>(imageDataSize);
+
+    std::vector<uint8_t> imageData(imageDataSize, 0);
+
+    uint8_t* dst = imageData.data();
+
+    for (unsigned y = 0; y < height; ++y) {
+        const Color* srcRow = colorBuffer.data() + y * width;
+        uint8_t* dstRow = dst + y * rowStride;
+
+        for (unsigned x = 0; x < width; ++x) {
+            const Color& c = srcRow[x];
+            dstRow[x * 3 + 0] = static_cast<uint8_t>(c.B * 255.0f);
+            dstRow[x * 3 + 1] = static_cast<uint8_t>(c.G * 255.0f);
+            dstRow[x * 3 + 2] = static_cast<uint8_t>(c.R * 255.0f);
         }
     }
-    
-    outFile.close();
+
+    std::ofstream outFile("output.bmp", std::ios::binary | std::ios::out);
+    if (!outFile) return -1;
+
+    outFile.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));
+    outFile.write(reinterpret_cast<const char*>(&infoHeader), sizeof(infoHeader));
+    outFile.write(reinterpret_cast<const char*>(imageData.data()), imageData.size());
+
     return 0;
 }

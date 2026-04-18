@@ -86,24 +86,10 @@ CMakeFiles/program.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/program.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/makar/Projects/labki/5/main.cpp -o CMakeFiles/program.dir/main.cpp.s
 
-CMakeFiles/program.dir/Sphere.cpp.o: CMakeFiles/program.dir/flags.make
-CMakeFiles/program.dir/Sphere.cpp.o: Sphere.cpp
-CMakeFiles/program.dir/Sphere.cpp.o: CMakeFiles/program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/program.dir/Sphere.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/program.dir/Sphere.cpp.o -MF CMakeFiles/program.dir/Sphere.cpp.o.d -o CMakeFiles/program.dir/Sphere.cpp.o -c /home/makar/Projects/labki/5/Sphere.cpp
-
-CMakeFiles/program.dir/Sphere.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/program.dir/Sphere.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/makar/Projects/labki/5/Sphere.cpp > CMakeFiles/program.dir/Sphere.cpp.i
-
-CMakeFiles/program.dir/Sphere.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/program.dir/Sphere.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/makar/Projects/labki/5/Sphere.cpp -o CMakeFiles/program.dir/Sphere.cpp.s
-
 CMakeFiles/program.dir/Vector3.cpp.o: CMakeFiles/program.dir/flags.make
 CMakeFiles/program.dir/Vector3.cpp.o: Vector3.cpp
 CMakeFiles/program.dir/Vector3.cpp.o: CMakeFiles/program.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/program.dir/Vector3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/program.dir/Vector3.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/program.dir/Vector3.cpp.o -MF CMakeFiles/program.dir/Vector3.cpp.o.d -o CMakeFiles/program.dir/Vector3.cpp.o -c /home/makar/Projects/labki/5/Vector3.cpp
 
 CMakeFiles/program.dir/Vector3.cpp.i: cmake_force
@@ -114,24 +100,54 @@ CMakeFiles/program.dir/Vector3.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/program.dir/Vector3.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/makar/Projects/labki/5/Vector3.cpp -o CMakeFiles/program.dir/Vector3.cpp.s
 
+CMakeFiles/program.dir/Sphere.cpp.o: CMakeFiles/program.dir/flags.make
+CMakeFiles/program.dir/Sphere.cpp.o: Sphere.cpp
+CMakeFiles/program.dir/Sphere.cpp.o: CMakeFiles/program.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/program.dir/Sphere.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/program.dir/Sphere.cpp.o -MF CMakeFiles/program.dir/Sphere.cpp.o.d -o CMakeFiles/program.dir/Sphere.cpp.o -c /home/makar/Projects/labki/5/Sphere.cpp
+
+CMakeFiles/program.dir/Sphere.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/program.dir/Sphere.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/makar/Projects/labki/5/Sphere.cpp > CMakeFiles/program.dir/Sphere.cpp.i
+
+CMakeFiles/program.dir/Sphere.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/program.dir/Sphere.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/makar/Projects/labki/5/Sphere.cpp -o CMakeFiles/program.dir/Sphere.cpp.s
+
+CMakeFiles/program.dir/Plane.cpp.o: CMakeFiles/program.dir/flags.make
+CMakeFiles/program.dir/Plane.cpp.o: Plane.cpp
+CMakeFiles/program.dir/Plane.cpp.o: CMakeFiles/program.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/program.dir/Plane.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/program.dir/Plane.cpp.o -MF CMakeFiles/program.dir/Plane.cpp.o.d -o CMakeFiles/program.dir/Plane.cpp.o -c /home/makar/Projects/labki/5/Plane.cpp
+
+CMakeFiles/program.dir/Plane.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/program.dir/Plane.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/makar/Projects/labki/5/Plane.cpp > CMakeFiles/program.dir/Plane.cpp.i
+
+CMakeFiles/program.dir/Plane.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/program.dir/Plane.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/makar/Projects/labki/5/Plane.cpp -o CMakeFiles/program.dir/Plane.cpp.s
+
 # Object files for target program
 program_OBJECTS = \
 "CMakeFiles/program.dir/main.cpp.o" \
+"CMakeFiles/program.dir/Vector3.cpp.o" \
 "CMakeFiles/program.dir/Sphere.cpp.o" \
-"CMakeFiles/program.dir/Vector3.cpp.o"
+"CMakeFiles/program.dir/Plane.cpp.o"
 
 # External object files for target program
 program_EXTERNAL_OBJECTS =
 
 program: CMakeFiles/program.dir/main.cpp.o
-program: CMakeFiles/program.dir/Sphere.cpp.o
 program: CMakeFiles/program.dir/Vector3.cpp.o
+program: CMakeFiles/program.dir/Sphere.cpp.o
+program: CMakeFiles/program.dir/Plane.cpp.o
 program: CMakeFiles/program.dir/build.make
 program: CMakeFiles/program.dir/compiler_depend.ts
 program: /usr/lib/libgomp.so
 program: /usr/lib/libpthread.a
 program: CMakeFiles/program.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable program"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/makar/Projects/labki/5/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable program"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/program.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
