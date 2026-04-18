@@ -188,6 +188,16 @@ void Scene::LoadScene(std::string filename) {
             } else if (cmd == "CameraPos") {
                 input >> this->CameraPosition.X >> this->CameraPosition.Y >> this->CameraPosition.Z;
             }
+        } else if (tok == "AddObject") {
+            std::string cmd;
+            input >> cmd;
+            if (cmd == "Sphere") {
+
+
+            } else if (cmd == "Plane") {
+            }
+        } else if (tok == "AddLight") {
+            
         }
     }
 }

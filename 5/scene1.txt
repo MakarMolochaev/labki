@@ -1,6 +1,6 @@
 Set Width 1920
 Set Height 1080
-Set SSAA 2
+Set SSAA 4
 Set AO Enabled
 Set AOsize 0.2
 Set Shadows Enabled

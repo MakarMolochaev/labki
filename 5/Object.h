@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "Material.h"
 #include "IntersectResult.h"
 #include "Ray.h"
@@ -10,6 +11,7 @@ public:
     Object() = default;
 
     virtual IntersectResult Intersect(Ray ray) const = 0;
+    virtual std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const = 0;
     virtual ~Object() = default;
 };
 
@@ -23,6 +25,7 @@ public:
     }
 
     IntersectResult Intersect(Ray ray) const override;
+    std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
 };
 
 class Plane : public Object {
@@ -35,4 +38,5 @@ public:
     }
 
     IntersectResult Intersect(Ray ray) const override;
+    std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
 };

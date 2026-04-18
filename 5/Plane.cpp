@@ -24,3 +24,15 @@ IntersectResult Plane::Intersect(Ray ray) const {
         return IntersectResult(false);
     }
 }
+
+std::unique_ptr<Object> Plane::Instantiate(std::ifstream& inputStream) const {
+    //position: 0 0 0.9
+    //radius: 1
+    //diffuseColor: 255 0 0
+    //specularColor: 255 255 255
+    //glossy: 4
+
+    std::string cmd;
+    //inputStream >> cmd;
+    return std::make_unique<Plane>(Vector3(0, 0, 0), 15, Material(Color(0.25, 0.25, 0.25), Color(0,0,0), 4));
+}
