@@ -15,6 +15,7 @@ set(SOURCES
     Vector3.cpp
     Sphere.cpp
     Plane.cpp
+    Scene.cpp
 )
 
 add_executable(program ${SOURCES})

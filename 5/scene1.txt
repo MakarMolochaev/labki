@@ -1,0 +1,43 @@
+Set Width 1920
+Set Height 1080
+Set SSAA 2
+Set AO Enabled
+Set AOsize 0.2
+Set Shadows Enabled
+
+Set WorldColor 255 255 255
+Set CameraPos -7 0 3
+
+AddObject Sphere {
+    position: 0 0 0.9
+    radius: 1
+    diffuseColor: 255 0 0
+    specularColor: 255 255 255
+    glossy: 4
+}
+
+AddObject Plane {
+    position: 0 0 0
+    size: 15
+    diffuseColor: 64 64 64
+    specularColor: 0 0 0
+    glossy: 4
+}
+
+AddLight {
+    position 3 -4 2
+    color 0 255 255
+    strength 2
+}
+
+AddLight {
+    position 3 2 2
+    color 255 0 255
+    strength 4
+}
+
+AddLight {
+    position -3 -3 4
+    color 255 255 255
+    strength 0.5
+}
