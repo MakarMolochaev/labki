@@ -35,6 +35,8 @@ int WriteBMP(unsigned width, unsigned height, const std::vector<Color>& colorBuf
         return -1;
     }
 
+    std::cout << "Writing to file\n";
+
     int rowStride = ((width * 3 + 3) & ~3);
     size_t imageDataSize = static_cast<size_t>(rowStride) * height;
 

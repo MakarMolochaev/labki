@@ -17,6 +17,8 @@ public:
 
 class Sphere : public Object {
 public:
+    Sphere() = default;
+    
     float radius;
     Sphere(Vector3 pos, float radius, Material mat) {
         this->radius = radius;
@@ -30,6 +32,8 @@ public:
 
 class Plane : public Object {
 public:
+    Plane() = default;
+
     float size;
     Plane(Vector3 pos, float size, Material mat) {
         this->size = size;

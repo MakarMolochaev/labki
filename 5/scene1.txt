@@ -1,6 +1,6 @@
 Set Width 1920
 Set Height 1080
-Set SSAA 4
+Set SSAA 2
 Set AO Enabled
 Set AOsize 0.2
 Set Shadows Enabled
@@ -13,10 +13,10 @@ AddObject Sphere {
     radius: 1
     diffuseColor: 255 0 0
     specularColor: 255 255 255
-    glossy: 4
+    glossy: 8
 }
 
-AddObject Plane {
+1AddObject Plane {
     position: 0 0 0
     size: 15
     diffuseColor: 64 64 64

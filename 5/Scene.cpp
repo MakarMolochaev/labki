@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "Scene.h"
+#include "ObjectFactory.h"
 #include "BMPWriter.h"
 
 Ray Scene::Perspective(int x, int y, float aspectRatio) {
@@ -19,6 +20,8 @@ Ray Scene::Ortogonal(int x, int y, float aspectRatio, float size) {
 }
 
 void Scene::Render() {
+    std::cout << "Render started\n";
+    
     omp_set_num_threads(16);
     float aspectRatio = (float)Width / (float)Height;
     CameraForward.Normalize();
@@ -151,6 +154,11 @@ void Scene::Render() {
 }
 
 void Scene::LoadScene(std::string filename) {
+
+    ObjectFactory factory;
+    factory.RegisterType<Sphere>("Sphere");
+    factory.RegisterType<Plane>("Plane");
+
     std::ifstream input;
     input.open(filename);
 
@@ -189,13 +197,11 @@ void Scene::LoadScene(std::string filename) {
                 input >> this->CameraPosition.X >> this->CameraPosition.Y >> this->CameraPosition.Z;
             }
         } else if (tok == "AddObject") {
-            std::string cmd;
-            input >> cmd;
-            if (cmd == "Sphere") {
-
-
-            } else if (cmd == "Plane") {
-            }
+            std::string objectType;
+            input >> objectType;
+            std::unique_ptr<Object> obj = factory.Create(objectType, input);
+            this->AddObject(std::move(obj));
+            std::cout << "Object added: " << objectType << "\n";
         } else if (tok == "AddLight") {
             
         }

@@ -129,6 +129,30 @@ program/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/build
 .PHONY : program/fast
 
+ObjectFactory.o: ObjectFactory.cpp.o
+.PHONY : ObjectFactory.o
+
+# target to build an object file
+ObjectFactory.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/ObjectFactory.cpp.o
+.PHONY : ObjectFactory.cpp.o
+
+ObjectFactory.i: ObjectFactory.cpp.i
+.PHONY : ObjectFactory.i
+
+# target to preprocess a source file
+ObjectFactory.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/ObjectFactory.cpp.i
+.PHONY : ObjectFactory.cpp.i
+
+ObjectFactory.s: ObjectFactory.cpp.s
+.PHONY : ObjectFactory.s
+
+# target to generate assembly for a file
+ObjectFactory.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/ObjectFactory.cpp.s
+.PHONY : ObjectFactory.cpp.s
+
 Plane.o: Plane.cpp.o
 .PHONY : Plane.o
 
@@ -258,6 +282,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... program"
+	@echo "... ObjectFactory.o"
+	@echo "... ObjectFactory.i"
+	@echo "... ObjectFactory.s"
 	@echo "... Plane.o"
 	@echo "... Plane.i"
 	@echo "... Plane.s"

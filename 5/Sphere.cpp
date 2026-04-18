@@ -21,13 +21,46 @@ IntersectResult Sphere::Intersect(Ray ray) const {
 }
 
 std::unique_ptr<Object> Sphere::Instantiate(std::ifstream& inputStream) const {
-    //position: 0 0 0.9
-    //radius: 1
-    //diffuseColor: 255 0 0
-    //specularColor: 255 255 255
-    //glossy: 4
+    std::unique_ptr<Sphere> result = std::make_unique<Sphere>();
 
-    std::string cmd;
-    //inputStream >> cmd;
-    return std::make_unique<Sphere>(Vector3(0, 0, 0.5), 1, Material(Color(1, 0, 0), Color(1, 1, 1), 4));
+    std::string cmd = "";
+    while (cmd != "}") {
+        if (cmd == "position:") {
+            inputStream >> cmd;
+            result->position.X = std::stod(cmd);
+            inputStream >> cmd;
+            result->position.Y = std::stod(cmd);
+            inputStream >> cmd;
+            result->position.Z = std::stod(cmd);
+            continue;
+        } else if (cmd == "radius:") {
+            inputStream >> cmd;
+            result->radius = std::stod(cmd);
+            continue;
+        } else if (cmd == "diffuseColor:") {
+            inputStream >> cmd;
+            result->material.diffuseColor.R = std::stod(cmd) / 255.0;
+            inputStream >> cmd;
+            result->material.diffuseColor.G = std::stod(cmd) / 255.0;
+            inputStream >> cmd;
+            result->material.diffuseColor.B = std::stod(cmd) / 255.0;
+            continue;
+        } else if (cmd == "specularColor:") {
+            inputStream >> cmd;
+            result->material.specularColor.R = std::stod(cmd) / 255.0;
+            inputStream >> cmd;
+            result->material.specularColor.G = std::stod(cmd) / 255.0;
+            inputStream >> cmd;
+            result->material.specularColor.B = std::stod(cmd) / 255.0;
+            continue;
+        } else if (cmd == "glossy:") {
+            inputStream >> cmd;
+            result->material.glossy = std::stod(cmd);
+            continue;
+        }
+
+        inputStream >> cmd;
+    }
+
+    return result;
 }
