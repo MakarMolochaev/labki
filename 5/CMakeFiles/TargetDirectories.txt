@@ -1,3 +1,0 @@
-/home/makar/Projects/labki/5/CMakeFiles/program.dir
-/home/makar/Projects/labki/5/CMakeFiles/edit_cache.dir
-/home/makar/Projects/labki/5/CMakeFiles/rebuild_cache.dir
