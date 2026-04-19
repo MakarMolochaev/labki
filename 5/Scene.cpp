@@ -19,6 +19,41 @@ Ray Scene::Ortogonal(int x, int y, float aspectRatio, float size) {
     return Ray(CameraPosition, CameraForward);
 }
 
+bool Scene::FindClosestIntersection(const Ray& ray, float& outMinT, Vector3& outNormal, Vector3& outPoint, Material& outMaterial) const
+{
+    float minT = std::numeric_limits<float>::infinity();
+    bool hitAnything = false;
+
+    for (const auto& obj : objects) {
+        IntersectResult res = obj->Intersect(ray);
+        if (res.hit && res.t < minT && res.t > 0.0f) {
+            minT = res.t;
+            outNormal = res.normal;
+            outPoint = res.point;
+            outMaterial = obj->material;
+            hitAnything = true;
+        }
+    }
+
+    if (hitAnything) {
+        outMinT = minT;
+    }
+    return hitAnything;
+}
+
+bool Scene::RayCast(const Ray& ray, float maxDistance, float* outT) const
+{
+    for (const auto& obj : objects) {
+        IntersectResult res = obj->Intersect(ray);
+        
+        if (res.hit && res.t > 0.0f && res.t < maxDistance) {
+            if (outT) *outT = res.t;
+            return true;
+        }
+    }
+    return false;
+}
+
 void Scene::Render() {
     std::cout << "Render started\n";
     
@@ -40,43 +75,23 @@ void Scene::Render() {
         Material resultMaterial;
         Vector3 resultNormal;
         Vector3 impactPoint;
-        bool hitAnything = false;
-
-        for (const auto& obj : objects) {
-            IntersectResult intersectResult = obj->Intersect(ray);
-            if (intersectResult.hit) {
-                if (intersectResult.t < minT) {
-                    minT = intersectResult.t;
-                    resultNormal = intersectResult.normal;
-                    impactPoint = intersectResult.point;
-                    resultMaterial = obj->material;
-                    hitAnything = true;
-                }
-            }
-        }
+        bool hitAnything = FindClosestIntersection(ray, minT, resultNormal, impactPoint, resultMaterial);
 
         if (!hitAnything) {
             colorBuffer[index] = worldColor;
         } else {
-
             Color resultColor(0.0f, 0.0f, 0.0f);
 
             for (const auto& light : lights) {
                 Vector3 toLight = light->position - impactPoint;
                 Vector3 lightDir = toLight.Normalized();
                 
-                //shadow
+                //shadows
                 bool isShadowed = false;
                 if (ShadowsEnabled) {
                     Ray toLightRay = Ray(impactPoint + lightDir * 0.0001, lightDir);
-                    for (const auto& obj : objects) {
-                        IntersectResult intersectRes = obj->Intersect(toLightRay);
-                        if (intersectRes.hit) {
-                            if (0 <= intersectRes.t && intersectRes.t <= toLight.Length()) {
-                                isShadowed = true;
-                                break;
-                            }
-                        }
+                    if (RayCast(toLightRay)) {
+                        isShadowed = true;
                     }
                 }
                 
@@ -95,26 +110,21 @@ void Scene::Render() {
 
                 }
             }
+            
+            resultColor = resultColor + worldColor * resultMaterial.diffuseColor * 0.97f;
 
             //AO
-            float AOFactor = 1.0f;
             if (AOEnabled) {
+                float AOFactor = 1.0f;
                 Ray AORay = Ray(impactPoint + resultNormal * 0.0001, resultNormal);
-                for (const auto& obj : objects) {
-                    IntersectResult intersectRes = obj->Intersect(AORay);
-                    if (intersectRes.hit) {
-                        if (0 <= intersectRes.t && intersectRes.t <= AOSize) {
-                            AOFactor = (intersectRes.t + 0.02f) / (AOSize + 0.02f);
-                            break;
-                        }
-                    }
+                float AO_t;
+                if (RayCast(AORay, AOSize, &AO_t)) {
+                    AOFactor = (AO_t + 0.02f) / (AOSize + 0.02f);
                 }
+                resultColor = resultColor * std::pow(AOFactor, 0.8f);
             }
+            
 
-            resultColor = resultColor + worldColor * resultMaterial.diffuseColor * 0.97f;
-            
-            resultColor = resultColor * std::pow(AOFactor, 0.8f);
-            
             colorBuffer[index] = Color(
                 std::min(resultColor.R, 1.0f),
                 std::min(resultColor.G, 1.0f),

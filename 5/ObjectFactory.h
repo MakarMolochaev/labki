@@ -24,5 +24,5 @@ public:
     std::unique_ptr<Object> Create(std::string const& key, std::ifstream& inputStream) const;
 
 private:
-        std::unordered_map<std::string, Creator> creators_;
+    std::unordered_map<std::string, Creator> creators_;
 };

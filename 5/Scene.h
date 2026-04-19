@@ -40,6 +40,10 @@ public:
 
     void LoadScene(std::string filename);
 
+    bool FindClosestIntersection(const Ray& ray, float& outMinT, Vector3& outNormal, Vector3& outPoint, Material& outMaterial) const;
+
+    bool RayCast(const Ray& ray, float maxDistance = std::numeric_limits<float>::infinity(), float* outT = nullptr) const;
+
     void Render();
 
 private:

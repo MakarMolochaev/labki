@@ -16,7 +16,7 @@ AddObject Sphere {
     glossy: 8
 }
 
-1AddObject Plane {
+AddObject Plane {
     position: 0 0 0
     size: 15
     diffuseColor: 64 64 64

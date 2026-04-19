@@ -1,4 +1,3 @@
-- Plane instantiation
 - Box
 -   intersection
 -   instantiation
