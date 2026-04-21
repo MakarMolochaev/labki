@@ -84,7 +84,7 @@ void Scene::Render() {
 
         Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
 
-        Trace(ray, colorBuffer, index);
+        colorBuffer[index] = Trace(ray);
     }
 
     std::vector<Color> resultColorBuffer(Width * Height);
@@ -117,7 +117,7 @@ void Scene::Render() {
     WriteBMP(Width, Height, resultColorBuffer);
 }
 
-void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
+Color Scene::Trace(Ray &ray)
 {
     float minT = 100000.0f;
     Material resultMaterial;
@@ -127,7 +127,7 @@ void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
 
     if (!hitAnything)
     {
-        colorBuffer[index] = worldColor;
+        return worldColor;
     }
     else
     {
@@ -136,8 +136,11 @@ void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
         for (const auto &light : lights)
         {
             Vector3 toLight = light->position - impactPoint;
+            float lightDist = toLight.Length();
             Vector3 lightDir = toLight.Normalized();
 
+            float attenuation = 1.0f / ((lightDist * lightDist * 1.0/256.0) + 1.0f);
+            //attenuation = 1.0f;
             // shadows
             bool isShadowed = false;
             if (ShadowsEnabled)
@@ -160,8 +163,8 @@ void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
                 float specularFactor = std::pow(std::max(0.0f, specCos), resultMaterial.glossy) * diffuseFactor;
 
                 resultColor = resultColor +
-                              resultMaterial.diffuseColor * light->color * light->intensity * diffuseFactor +
-                              resultMaterial.specularColor * light->color * light->intensity * specularFactor;
+                              resultMaterial.diffuseColor * light->color * light->intensity * diffuseFactor * attenuation +
+                              resultMaterial.specularColor * light->color * light->intensity * specularFactor * attenuation;
             }
         }
 
@@ -180,7 +183,9 @@ void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
             resultColor = resultColor * std::pow(AOFactor, 0.8f);
         }
 
-        colorBuffer[index] = Color(
+        //return Color(ATT, ATT, ATT) * (1.0/3.0) * 1.0;
+
+        return Color(
             std::min(resultColor.R, 1.0f),
             std::min(resultColor.G, 1.0f),
             std::min(resultColor.B, 1.0f));

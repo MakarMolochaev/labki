@@ -47,7 +47,7 @@ public:
 
     void Render();
 
-    void Trace(Ray &ray, std::vector<Color> &colorBuffer, int index);
+    Color Trace(Ray &ray);
 
 private:
 
