@@ -25,6 +25,7 @@ public:
     
     Color worldColor = Color(1, 1, 1);
     unsigned int SSAA = 2;
+    bool SSAAJitter = true;
     float AOSize = 0.1f;
     bool AOEnabled = true;
     bool ShadowsEnabled = true;
@@ -46,9 +47,11 @@ public:
 
     void Render();
 
+    void Trace(Ray &ray, std::vector<Color> &colorBuffer, int index);
+
 private:
 
-    Ray Perspective(int x, int y, float aspectRatio);
+    Ray Perspective(int x, int y, float aspectRatio, float offsetX, float offsetY);
 
-    Ray Ortogonal(int x, int y, float aspectRatio, float size = 1);
+    Ray Orthogonal(int x, int y, float aspectRatio, float size = 1);
 };

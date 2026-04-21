@@ -8,5 +8,3 @@
 - Light instantiation
 - Sun Light
 - Sun Light instantiation
-
-- Distributed SSAA

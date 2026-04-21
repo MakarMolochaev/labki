@@ -1,18 +1,19 @@
 #include <fstream>
 #include <iostream>
+#include <random>
 #include "Scene.h"
 #include "ObjectFactory.h"
 #include "BMPWriter.h"
 
-Ray Scene::Perspective(int x, int y, float aspectRatio) {
+Ray Scene::Perspective(int x, int y, float aspectRatio, float offsetX, float offsetY) {
     Vector3 dir = CameraForward * PlaneDistance
-                + CameraRight * ((float)x / (float)(Width * SSAA) - 0.5) * 2 * aspectRatio
-                + CameraUp * ((float)y / (float)(Height * SSAA) - 0.5) * 2;
+                + CameraRight * (((float)x + offsetX) / (float)(Width * SSAA) - 0.5) * 2 * aspectRatio
+                + CameraUp * (((float)y + offsetY) / (float)(Height * SSAA) - 0.5) * 2;
     
     return Ray(CameraPosition, dir.Normalized());
 }
 
-Ray Scene::Ortogonal(int x, int y, float aspectRatio, float size) {
+Ray Scene::Orthogonal(int x, int y, float aspectRatio, float size) {
     Vector3 start = CameraRight * ((float)x / (float)(Width * SSAA) - 0.5) * 2 * aspectRatio * size
         + CameraUp * ((float)y / (float)(Height * SSAA) - 0.5) * 2 * size;
     
@@ -64,73 +65,26 @@ void Scene::Render() {
     int totalPixels = Width * Height * SSAA * SSAA;
     std::vector<Color> colorBuffer(totalPixels);
 
+    std::default_random_engine rand;
+    std::uniform_real_distribution<double> dist(-0.25f, 0.25f);
+    std::vector<float> jitter(SSAA * SSAA * 2);
+    if(SSAA != 1 && SSAAJitter) {
+        for(int i = 0; i < SSAA * SSAA * 2; i++) {
+            jitter[i] = dist(rand);
+        }
+    }
+
     #pragma omp parallel for schedule(dynamic)
     for (int index = 0; index < totalPixels; index++) {
         int i = index % (Width * SSAA);
         int j = index / (Width * SSAA);
 
-        Ray ray = Perspective(i, j, aspectRatio);
+        float offsetX = jitter[((i % SSAA) * SSAA + j % SSAA) * 2];
+        float offsetY = jitter[((i % SSAA) * SSAA + j % SSAA) * 2 + 1];
 
-        float minT = 100000.0f;
-        Material resultMaterial;
-        Vector3 resultNormal;
-        Vector3 impactPoint;
-        bool hitAnything = FindClosestIntersection(ray, minT, resultNormal, impactPoint, resultMaterial);
+        Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
 
-        if (!hitAnything) {
-            colorBuffer[index] = worldColor;
-        } else {
-            Color resultColor(0.0f, 0.0f, 0.0f);
-
-            for (const auto& light : lights) {
-                Vector3 toLight = light->position - impactPoint;
-                Vector3 lightDir = toLight.Normalized();
-                
-                //shadows
-                bool isShadowed = false;
-                if (ShadowsEnabled) {
-                    Ray toLightRay = Ray(impactPoint + lightDir * 0.0001, lightDir);
-                    if (RayCast(toLightRay)) {
-                        isShadowed = true;
-                    }
-                }
-                
-                if (!isShadowed) {
-                    float normalCos = Vector3::Dot(resultNormal, lightDir);
-                    Vector3 idealReflect = (resultNormal * 2 * normalCos - lightDir).Normalized();
-                    float diffuseFactor = std::max(0.0f, normalCos);
-                    
-                    Vector3 viewDir = (CameraPosition - impactPoint).Normalized();
-                    float specCos = Vector3::Cos(idealReflect, viewDir);
-                    float specularFactor = std::pow(std::max(0.0f, specCos), resultMaterial.glossy) * diffuseFactor;
-
-                    resultColor = resultColor +
-                        resultMaterial.diffuseColor * light->color * light->intensity * diffuseFactor +
-                        resultMaterial.specularColor * light->color * light->intensity * specularFactor;
-
-                }
-            }
-            
-            resultColor = resultColor + worldColor * resultMaterial.diffuseColor * 0.97f;
-
-            //AO
-            if (AOEnabled) {
-                float AOFactor = 1.0f;
-                Ray AORay = Ray(impactPoint + resultNormal * 0.0001, resultNormal);
-                float AO_t;
-                if (RayCast(AORay, AOSize, &AO_t)) {
-                    AOFactor = (AO_t + 0.02f) / (AOSize + 0.02f);
-                }
-                resultColor = resultColor * std::pow(AOFactor, 0.8f);
-            }
-            
-
-            colorBuffer[index] = Color(
-                std::min(resultColor.R, 1.0f),
-                std::min(resultColor.G, 1.0f),
-                std::min(resultColor.B, 1.0f)
-            );
-        }
+        Trace(ray, colorBuffer, index);
     }
 
     std::vector<Color> resultColorBuffer(Width * Height);
@@ -163,6 +117,76 @@ void Scene::Render() {
     WriteBMP(Width, Height, resultColorBuffer);
 }
 
+void Scene::Trace(Ray &ray, std::vector<Color> &colorBuffer, int index)
+{
+    float minT = 100000.0f;
+    Material resultMaterial;
+    Vector3 resultNormal;
+    Vector3 impactPoint;
+    bool hitAnything = FindClosestIntersection(ray, minT, resultNormal, impactPoint, resultMaterial);
+
+    if (!hitAnything)
+    {
+        colorBuffer[index] = worldColor;
+    }
+    else
+    {
+        Color resultColor(0.0f, 0.0f, 0.0f);
+
+        for (const auto &light : lights)
+        {
+            Vector3 toLight = light->position - impactPoint;
+            Vector3 lightDir = toLight.Normalized();
+
+            // shadows
+            bool isShadowed = false;
+            if (ShadowsEnabled)
+            {
+                Ray toLightRay = Ray(impactPoint + lightDir * 0.0001f, lightDir);
+                if (RayCast(toLightRay, toLight.Length() - 0.0001f))
+                {
+                    isShadowed = true;
+                }
+            }
+
+            if (!isShadowed)
+            {
+                float normalCos = Vector3::Dot(resultNormal, lightDir);
+                Vector3 idealReflect = (resultNormal * 2 * normalCos - lightDir).Normalized();
+                float diffuseFactor = std::max(0.0f, normalCos);
+
+                Vector3 viewDir = (CameraPosition - impactPoint).Normalized();
+                float specCos = Vector3::Cos(idealReflect, viewDir);
+                float specularFactor = std::pow(std::max(0.0f, specCos), resultMaterial.glossy) * diffuseFactor;
+
+                resultColor = resultColor +
+                              resultMaterial.diffuseColor * light->color * light->intensity * diffuseFactor +
+                              resultMaterial.specularColor * light->color * light->intensity * specularFactor;
+            }
+        }
+
+        resultColor = resultColor + worldColor * resultMaterial.diffuseColor * 0.97f;
+
+        // AO
+        if (AOEnabled)
+        {
+            float AOFactor = 1.0f;
+            Ray AORay = Ray(impactPoint + resultNormal * 0.0001, resultNormal);
+            float AO_t;
+            if (RayCast(AORay, AOSize, &AO_t))
+            {
+                AOFactor = (AO_t + 0.02f) / (AOSize + 0.02f);
+            }
+            resultColor = resultColor * std::pow(AOFactor, 0.8f);
+        }
+
+        colorBuffer[index] = Color(
+            std::min(resultColor.R, 1.0f),
+            std::min(resultColor.G, 1.0f),
+            std::min(resultColor.B, 1.0f));
+    }
+}
+
 void Scene::LoadScene(std::string filename) {
 
     ObjectFactory factory;
@@ -183,12 +207,12 @@ void Scene::LoadScene(std::string filename) {
             } else if (cmd == "Height") {
                 input >> cmd;
                 this->Height = std::stoi(cmd);
-            } else if (cmd == "Height") {
-                input >> cmd;
-                this->Height = std::stoi(cmd);
             } else if (cmd == "SSAA") {
                 input >> cmd;
                 this->SSAA = std::stoi(cmd);
+            } else if (cmd == "SSAA_Jitter") {
+                input >> cmd;
+                this->SSAAJitter = (cmd == "Enabled");
             } else if (cmd == "AO") {
                 input >> cmd;
                 this -> AOEnabled = (cmd == "Enabled");
@@ -197,7 +221,7 @@ void Scene::LoadScene(std::string filename) {
                 this->AOSize = std::stod(cmd);
             } else if (cmd == "Shadows") {
                 input >> cmd;
-                this -> ShadowsEnabled = (cmd == "Enabled");
+                this->ShadowsEnabled = (cmd == "Enabled");
             } else if (cmd == "WorldColor") {
                 Color worldColor;
                 input >> worldColor.R >> worldColor.G >> worldColor.B;
