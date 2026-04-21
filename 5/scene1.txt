@@ -13,25 +13,31 @@ Set CameraPos -7 0 3
 AddObject Sphere {
     position: 0 -1 0.9
     radius: 1
-    diffuseColor: 255 0 0
-    specularColor: 255 255 255
-    glossy: 8
+    Material {
+        diffuseColor: 255 0 0
+        specularColor: 255 255 255
+        glossy: 8
+    }
 }
 
 AddObject Sphere {
     position: 0 1 0.9
     radius: 1
-    diffuseColor: 0 255 0
-    specularColor: 255 255 255
-    glossy: 8
+    Material {
+        diffuseColor: 0 255 0
+        specularColor: 255 255 255
+        glossy: 8
+    }
 }
 
 AddObject Plane {
     position: 0 0 0
     size: 15
-    diffuseColor: 64 64 64
-    specularColor: 0 0 0
-    glossy: 4
+    Material {
+        diffuseColor: 64 64 64
+        specularColor: 0 0 0
+        glossy: 4
+    }
 }
 
 AddLight {

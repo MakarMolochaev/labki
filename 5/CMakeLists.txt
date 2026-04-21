@@ -16,6 +16,7 @@ set(SOURCES
     Scene.cpp
     Color.cpp
     ObjectFactory.cpp
+    Material.cpp
 )
 
 add_executable(program ${SOURCES})

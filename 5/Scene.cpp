@@ -118,7 +118,7 @@ void Scene::Render() {
     WriteBMP(Width, Height, resultColorBuffer);
 }
 
-Color Scene::Trace(Ray &ray, float reflectDepth)
+Color Scene::Trace(Ray &ray, int reflectDepth)
 {
     if (reflectDepth < 0) {
         return Color(0, 0, 0);
@@ -197,11 +197,13 @@ Color Scene::Trace(Ray &ray, float reflectDepth)
         //resultColor = resultColor + reflected * resultMaterial.specularColor / (1.0f + (float)Bounces);
         //resultColor = resultColor / (1.0f + (float)Bounces);
         //resultColor = resultColor * (1.0f - resultMaterial.specularFactor) + reflected * resultMaterial.specularFactor;
+        resultColor = Color::MultiLerp(resultColor, reflected * 0.85f, reflected * 0.85f * resultMaterial.reflectFactor);
 
         return Color(
             std::min(resultColor.R, 1.0f),
             std::min(resultColor.G, 1.0f),
-            std::min(resultColor.B, 1.0f));
+            std::min(resultColor.B, 1.0f)
+        );
     }
 }
 

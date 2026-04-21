@@ -153,6 +153,30 @@ Color.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Color.cpp.s
 .PHONY : Color.cpp.s
 
+Material.o: Material.cpp.o
+.PHONY : Material.o
+
+# target to build an object file
+Material.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Material.cpp.o
+.PHONY : Material.cpp.o
+
+Material.i: Material.cpp.i
+.PHONY : Material.i
+
+# target to preprocess a source file
+Material.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Material.cpp.i
+.PHONY : Material.cpp.i
+
+Material.s: Material.cpp.s
+.PHONY : Material.s
+
+# target to generate assembly for a file
+Material.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Material.cpp.s
+.PHONY : Material.cpp.s
+
 ObjectFactory.o: ObjectFactory.cpp.o
 .PHONY : ObjectFactory.o
 
@@ -309,6 +333,9 @@ help:
 	@echo "... Color.o"
 	@echo "... Color.i"
 	@echo "... Color.s"
+	@echo "... Material.o"
+	@echo "... Material.i"
+	@echo "... Material.s"
 	@echo "... ObjectFactory.o"
 	@echo "... ObjectFactory.i"
 	@echo "... ObjectFactory.s"

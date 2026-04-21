@@ -48,7 +48,7 @@ public:
 
     void Render();
 
-    Color Trace(Ray &ray, float reflectDepth = 0);
+    Color Trace(Ray &ray, int reflectDepth = 0);
 
 private:
 

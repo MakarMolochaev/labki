@@ -1,13 +1,14 @@
 #pragma once
-#include "Color.h"
+#include <fstream>
 #include <cmath>
+#include "Color.h"
 
 class Material {
 public:
     Color diffuseColor;
     Color specularColor;
     float glossy = 4;
-    float specularFactor = 1.0f;
+    float reflectFactor = 0.5f;
 
     Material() = default;
 
@@ -28,4 +29,6 @@ public:
         specularColor = specular;
         glossy = std::min(std::max(2.0f, glossiness), 256.0f);
     }
+
+    void FillWithValues(std::ifstream& inputStream);
 };

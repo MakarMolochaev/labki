@@ -31,5 +31,5 @@ public:
     }
 
     static Color Lerp(Color& a, Color& b, float t);
-    static Color MultiLerp(Color& a, Color& b, Color& t);
+    static Color MultiLerp(Color& a, Color b, Color t);
 };

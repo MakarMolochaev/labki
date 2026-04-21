@@ -37,25 +37,9 @@ std::unique_ptr<Object> Sphere::Instantiate(std::ifstream& inputStream) const {
             inputStream >> cmd;
             result->radius = std::stod(cmd);
             continue;
-        } else if (cmd == "diffuseColor:") {
+        } else if (cmd == "Material") {
+            result->material.FillWithValues(inputStream);
             inputStream >> cmd;
-            result->material.diffuseColor.R = std::stod(cmd) / 255.0;
-            inputStream >> cmd;
-            result->material.diffuseColor.G = std::stod(cmd) / 255.0;
-            inputStream >> cmd;
-            result->material.diffuseColor.B = std::stod(cmd) / 255.0;
-            continue;
-        } else if (cmd == "specularColor:") {
-            inputStream >> cmd;
-            result->material.specularColor.R = std::stod(cmd) / 255.0;
-            inputStream >> cmd;
-            result->material.specularColor.G = std::stod(cmd) / 255.0;
-            inputStream >> cmd;
-            result->material.specularColor.B = std::stod(cmd) / 255.0;
-            continue;
-        } else if (cmd == "glossy:") {
-            inputStream >> cmd;
-            result->material.glossy = std::stod(cmd);
             continue;
         }
 

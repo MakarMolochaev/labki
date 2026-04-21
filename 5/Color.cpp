@@ -9,7 +9,7 @@ Color Color::Lerp(Color& a, Color& b, float t) {
     );
 }
 
-Color Color::MultiLerp(Color& a, Color& b, Color& t) {
+Color Color::MultiLerp(Color& a, Color b, Color t) {
     return Color(
         a.R + (b.R - a.R) * t.R,
         a.G + (b.G - a.G) * t.G,
