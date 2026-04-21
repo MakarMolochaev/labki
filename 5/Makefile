@@ -129,6 +129,30 @@ program/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/build
 .PHONY : program/fast
 
+Color.o: Color.cpp.o
+.PHONY : Color.o
+
+# target to build an object file
+Color.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Color.cpp.o
+.PHONY : Color.cpp.o
+
+Color.i: Color.cpp.i
+.PHONY : Color.i
+
+# target to preprocess a source file
+Color.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Color.cpp.i
+.PHONY : Color.cpp.i
+
+Color.s: Color.cpp.s
+.PHONY : Color.s
+
+# target to generate assembly for a file
+Color.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Color.cpp.s
+.PHONY : Color.cpp.s
+
 ObjectFactory.o: ObjectFactory.cpp.o
 .PHONY : ObjectFactory.o
 
@@ -282,6 +306,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... program"
+	@echo "... Color.o"
+	@echo "... Color.i"
+	@echo "... Color.s"
 	@echo "... ObjectFactory.o"
 	@echo "... ObjectFactory.i"
 	@echo "... ObjectFactory.s"

@@ -29,6 +29,7 @@ public:
     float AOSize = 0.1f;
     bool AOEnabled = true;
     bool ShadowsEnabled = true;
+    unsigned int Bounces = 0;
 
 
     void AddObject(std::unique_ptr<Object> obj) {
@@ -47,7 +48,7 @@ public:
 
     void Render();
 
-    Color Trace(Ray &ray);
+    Color Trace(Ray &ray, float reflectDepth = 0);
 
 private:
 

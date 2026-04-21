@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include "Scene.h"
+#include "Color.h"
 #include "ObjectFactory.h"
 #include "BMPWriter.h"
 
@@ -84,7 +85,7 @@ void Scene::Render() {
 
         Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
 
-        colorBuffer[index] = Trace(ray);
+        colorBuffer[index] = Trace(ray, this->Bounces);
     }
 
     std::vector<Color> resultColorBuffer(Width * Height);
@@ -117,8 +118,12 @@ void Scene::Render() {
     WriteBMP(Width, Height, resultColorBuffer);
 }
 
-Color Scene::Trace(Ray &ray)
+Color Scene::Trace(Ray &ray, float reflectDepth)
 {
+    if (reflectDepth < 0) {
+        return Color(0, 0, 0);
+    }
+
     float minT = 100000.0f;
     Material resultMaterial;
     Vector3 resultNormal;
@@ -184,6 +189,14 @@ Color Scene::Trace(Ray &ray)
         }
 
         //return Color(ATT, ATT, ATT) * (1.0/3.0) * 1.0;
+        
+        Vector3 reflectDir = ray.dir - resultNormal * 2.0f * Vector3::Dot(ray.dir, resultNormal);
+        reflectDir.Normalize();
+        Ray reflectRay(impactPoint + resultNormal * 0.0002f, reflectDir);
+        Color reflected = Trace(reflectRay, reflectDepth - 1) * resultMaterial.specularColor;
+        //resultColor = resultColor + reflected * resultMaterial.specularColor / (1.0f + (float)Bounces);
+        //resultColor = resultColor / (1.0f + (float)Bounces);
+        //resultColor = resultColor * (1.0f - resultMaterial.specularFactor) + reflected * resultMaterial.specularFactor;
 
         return Color(
             std::min(resultColor.R, 1.0f),
@@ -227,6 +240,9 @@ void Scene::LoadScene(std::string filename) {
             } else if (cmd == "Shadows") {
                 input >> cmd;
                 this->ShadowsEnabled = (cmd == "Enabled");
+            } else if (cmd == "Bounces") {
+                input >> cmd;
+                this->Bounces = std::stoi(cmd);
             } else if (cmd == "WorldColor") {
                 Color worldColor;
                 input >> worldColor.R >> worldColor.G >> worldColor.B;

@@ -5,14 +5,23 @@ Set SSAA_Jitter Enabled
 Set AO Enabled
 Set AOsize 0.2
 Set Shadows Enabled
+Set Bounces 0
 
 Set WorldColor 255 255 255
 Set CameraPos -7 0 3
 
 AddObject Sphere {
-    position: 0 0 0.9
+    position: 0 -1 0.9
     radius: 1
     diffuseColor: 255 0 0
+    specularColor: 255 255 255
+    glossy: 8
+}
+
+AddObject Sphere {
+    position: 0 1 0.9
+    radius: 1
+    diffuseColor: 0 255 0
     specularColor: 255 255 255
     glossy: 8
 }

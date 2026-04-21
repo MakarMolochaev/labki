@@ -14,6 +14,7 @@ set(SOURCES
     Sphere.cpp
     Plane.cpp
     Scene.cpp
+    Color.cpp
     ObjectFactory.cpp
 )
 

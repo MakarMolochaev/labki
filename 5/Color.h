@@ -15,6 +15,10 @@ public:
         return Color(R * other.R, G * other.G, B * other.B);
     }
 
+    Color operator/(const float other) const {
+        return Color(R / other, G / other, B / other);
+    }
+
     Color operator*(const float other) const {
         return Color(R * other, G * other, B * other);
     }
@@ -27,4 +31,5 @@ public:
     }
 
     static Color Lerp(Color& a, Color& b, float t);
+    static Color MultiLerp(Color& a, Color& b, Color& t);
 };

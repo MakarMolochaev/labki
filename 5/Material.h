@@ -6,7 +6,8 @@ class Material {
 public:
     Color diffuseColor;
     Color specularColor;
-    float glossy = 2;
+    float glossy = 4;
+    float specularFactor = 1.0f;
 
     Material() = default;
 
