@@ -225,6 +225,30 @@ Plane.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Plane.cpp.s
 .PHONY : Plane.cpp.s
 
+PointLight.o: PointLight.cpp.o
+.PHONY : PointLight.o
+
+# target to build an object file
+PointLight.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/PointLight.cpp.o
+.PHONY : PointLight.cpp.o
+
+PointLight.i: PointLight.cpp.i
+.PHONY : PointLight.i
+
+# target to preprocess a source file
+PointLight.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/PointLight.cpp.i
+.PHONY : PointLight.cpp.i
+
+PointLight.s: PointLight.cpp.s
+.PHONY : PointLight.s
+
+# target to generate assembly for a file
+PointLight.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/PointLight.cpp.s
+.PHONY : PointLight.cpp.s
+
 Scene.o: Scene.cpp.o
 .PHONY : Scene.o
 
@@ -366,6 +390,9 @@ help:
 	@echo "... Plane.o"
 	@echo "... Plane.i"
 	@echo "... Plane.s"
+	@echo "... PointLight.o"
+	@echo "... PointLight.i"
+	@echo "... PointLight.s"
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"

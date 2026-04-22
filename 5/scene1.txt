@@ -52,19 +52,19 @@ AddObject Plane {
 }
 
 AddLight {
-    position 3 -4 2
-    color 0 255 255
-    strength 2
+    position: 3 -4 2
+    color: 0 255 255
+    intensity: 2
 }
 
 AddLight {
-    position 3 2 2
-    color 255 0 255
-    strength 4
+    position: 3 2 2
+    color: 255 0 255
+    intensity: 4
 }
 
 AddLight {
-    position -3 -3 4
-    color 255 255 255
-    strength 0.5
+    position: -3 -3 4
+    color: 255 255 255
+    intensity: 0.5
 }

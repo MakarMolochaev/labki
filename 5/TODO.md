@@ -5,6 +5,5 @@
 -   intersection
 -   instantiation
 
-- Light instantiation
 - Sun Light
 - Sun Light instantiation

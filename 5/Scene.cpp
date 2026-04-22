@@ -261,7 +261,12 @@ void Scene::LoadScene(std::string filename) {
             this->AddObject(std::move(obj));
             std::cout << "Object added: " << objectType << "\n";
         } else if (tok == "AddLight") {
-            
+            std::string objectType;
+            input >> objectType;
+            std::unique_ptr<PointLight> light = std::make_unique<PointLight>();
+            light->FillWithValues(input);
+            this->AddLight(std::move(light));
+            std::cout << "Point light added\n";
         }
     }
 }

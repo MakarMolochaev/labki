@@ -18,6 +18,7 @@ set(SOURCES
     Color.cpp
     ObjectFactory.cpp
     Material.cpp
+    PointLight.cpp
 )
 
 add_executable(program ${SOURCES})
