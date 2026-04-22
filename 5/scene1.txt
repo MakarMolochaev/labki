@@ -30,6 +30,17 @@ AddObject Sphere {
     }
 }
 
+AddObject Triangle {
+    A: 0 -1 2
+    B: 0 1 2
+    C: 0 1 3
+    Material {
+        diffuseColor: 0 255 0
+        specularColor: 255 255 255
+        glossy: 8
+    }
+}
+
 AddObject Plane {
     position: 0 0 0
     size: 15

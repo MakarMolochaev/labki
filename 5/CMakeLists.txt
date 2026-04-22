@@ -13,6 +13,7 @@ set(SOURCES
     Vector3.cpp
     Sphere.cpp
     Plane.cpp
+    Triangle.cpp
     Scene.cpp
     Color.cpp
     ObjectFactory.cpp

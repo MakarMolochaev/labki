@@ -44,3 +44,13 @@ public:
     IntersectResult Intersect(Ray ray) const override;
     std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
 };
+
+class Triangle : public Object {
+public:
+    Triangle() = default;
+
+    Vector3 A, B, C;
+
+    IntersectResult Intersect(Ray ray) const override;
+    std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
+};

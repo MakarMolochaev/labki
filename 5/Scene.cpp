@@ -212,6 +212,7 @@ void Scene::LoadScene(std::string filename) {
     ObjectFactory factory;
     factory.RegisterType<Sphere>("Sphere");
     factory.RegisterType<Plane>("Plane");
+    factory.RegisterType<Triangle>("Triangle");
 
     std::ifstream input;
     input.open(filename);
