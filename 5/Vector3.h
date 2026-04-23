@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <string>
 
 class Vector3 {
 public:
@@ -37,6 +38,10 @@ public:
         X /= length;
         Y /= length;
         Z /= length;
+    }
+
+    std::string ToString() {
+        return "(" + std::to_string(this->X) + ", " + std::to_string(this->Y) + ", " + std::to_string(this->Z) + ")";
     }
 
     static float Dot(const Vector3& a, const Vector3& b);

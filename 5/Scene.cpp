@@ -208,15 +208,15 @@ Color Scene::Trace(Ray &ray, int reflectDepth)
 }
 
 void Scene::LoadScene(std::string filename) {
-
     ObjectFactory factory;
     factory.RegisterType<Sphere>("Sphere");
     factory.RegisterType<Plane>("Plane");
     factory.RegisterType<Triangle>("Triangle");
-
+    
     std::ifstream input;
     input.open(filename);
-
+    
+    
     std::string tok;
     while(input >> tok) {
         if (tok == "Set") {
@@ -253,6 +253,10 @@ void Scene::LoadScene(std::string filename) {
                 this->worldColor = worldColor;
             } else if (cmd == "CameraPos") {
                 input >> this->CameraPosition.X >> this->CameraPosition.Y >> this->CameraPosition.Z;
+            } else if (cmd == "CameraForward") {
+                Vector3 newForward;
+                input >> newForward.X >> newForward.Y >> newForward.Z;
+                this->UpdateDirections(newForward);
             }
         } else if (tok == "AddObject") {
             std::string objectType;
@@ -269,4 +273,14 @@ void Scene::LoadScene(std::string filename) {
             std::cout << "Point light added\n";
         }
     }
+}
+
+void Scene::UpdateDirections(Vector3& forward) {
+    this->CameraForward = forward.Normalized();
+    this->CameraUp = Vector3(0, 0, 1);
+    this->CameraRight = Vector3::Cross(this->CameraUp, this->CameraForward).Normalized();
+    this->CameraUp = Vector3::Cross(this->CameraForward, this->CameraRight).Normalized();
+
+    std::cout << "Camera directions updated:\nForward: " << this->CameraForward.ToString() 
+    << "\nRight: " << this->CameraRight.ToString() << "\nUp: " << this->CameraUp.ToString() << "\n";
 }

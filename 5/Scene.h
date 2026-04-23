@@ -20,8 +20,8 @@ public:
     float PlaneDistance = 1;
     Vector3 CameraPosition = Vector3(-7, 0, 3);
     Vector3 CameraForward = Vector3(1, 0, 0).Normalized();
-    Vector3 CameraUp = Vector3(0, 0, 1).Normalized();
     Vector3 CameraRight = Vector3(0, 1, 0).Normalized();
+    Vector3 CameraUp = Vector3(0, 0, 1).Normalized();
     
     Color worldColor = Color(1, 1, 1);
     unsigned int SSAA = 2;
@@ -49,6 +49,8 @@ public:
     void Render();
 
     Color Trace(Ray &ray, int reflectDepth = 0);
+
+    void UpdateDirections(Vector3& forward);
 
 private:
 

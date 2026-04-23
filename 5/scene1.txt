@@ -9,6 +9,7 @@ Set Bounces 0
 
 Set WorldColor 255 255 255
 Set CameraPos -7 0 3
+Set CameraForward 1 0 0
 
 AddObject Sphere {
     position: 0 -1 0.9
