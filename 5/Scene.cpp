@@ -1,6 +1,9 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <thread>
+#include <atomic>
+#include <iomanip>
 #include "Scene.h"
 #include "Color.h"
 #include "ObjectFactory.h"
@@ -58,12 +61,13 @@ bool Scene::RayCast(const Ray& ray, float maxDistance, float* outT) const
 
 void Scene::Render() {
     std::cout << "Render started\n";
+    std::cout << "Memory used: " << Width * Height * (SSAA * SSAA) * 3 * 4 / 1000000.0 << "MB\n";
     
     omp_set_num_threads(16);
     float aspectRatio = (float)Width / (float)Height;
     CameraForward.Normalize();
 
-    int totalPixels = Width * Height * SSAA * SSAA;
+    int64_t totalPixels = Width * Height * SSAA * SSAA;
     std::vector<Color> colorBuffer(totalPixels);
 
     std::default_random_engine rand;
@@ -75,19 +79,44 @@ void Scene::Render() {
         }
     }
 
+    std::atomic<int64_t> pixelsDone{0};
+
+    std::atomic<bool> finished{false};
+    std::thread progress([&]() {
+        const int64_t barWidth = 40;
+        while (!finished) {
+            float pct = 100.0f * pixelsDone / totalPixels;
+            int pos = barWidth * pixelsDone / totalPixels;
+            std::cout << "\rRendering: [";
+            for (int i = 0; i < barWidth; ++i)
+                std::cout << (i < pos ? "█" : "░");
+            std::cout << "] " << std::fixed << std::setprecision(1) << pct << "%   " << std::flush;
+            std::this_thread::sleep_for(std::chrono::milliseconds(16));
+        }
+        std::cout << "\rRendering: [████████████████████████████████████████] 100.0% - Done.\n";
+    });
+
+    auto t0 = std::chrono::steady_clock::now();
+    
     #pragma omp parallel for schedule(dynamic)
     for (int index = 0; index < totalPixels; index++) {
         int i = index % (Width * SSAA);
         int j = index / (Width * SSAA);
-
+        
         float offsetX = jitter[((i % SSAA) * SSAA + j % SSAA) * 2];
         float offsetY = jitter[((i % SSAA) * SSAA + j % SSAA) * 2 + 1];
-
+        
         Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
-
+        
         colorBuffer[index] = Trace(ray, this->Bounces);
+        pixelsDone.fetch_add(1, std::memory_order_relaxed);
     }
-
+    
+    finished = true;
+    progress.join();
+    double elapsedTime = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count();
+    std::cout << "Render time: " << elapsedTime / 1000.0 << " sec\n"; 
+    
     std::vector<Color> resultColorBuffer(Width * Height);
 
     #pragma omp parallel for collapse(2) schedule(dynamic)
