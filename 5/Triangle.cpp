@@ -76,3 +76,9 @@ std::unique_ptr<Object> Triangle::Instantiate(std::ifstream& inputStream) const 
 
     return result;
 }
+
+Triangle::Triangle(Vector3 a, Vector3 b, Vector3 c) {
+    this->A = a;
+    this->B = b;
+    this->C = c;
+}

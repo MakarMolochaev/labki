@@ -48,6 +48,7 @@ public:
 class Triangle : public Object {
 public:
     Triangle() = default;
+    Triangle(Vector3 a, Vector3 b, Vector3 c);
 
     Vector3 A, B, C;
 
