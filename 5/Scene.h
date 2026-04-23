@@ -40,6 +40,8 @@ public:
         lights.push_back(std::move(light));
     }
 
+    void AddModel(const std::string& filename, Material mat, Vector3 delta);
+
     void LoadScene(std::string filename);
 
     bool FindClosestIntersection(const Ray& ray, float& outMinT, Vector3& outNormal, Vector3& outPoint, Material& outMaterial) const;

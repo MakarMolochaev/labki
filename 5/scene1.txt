@@ -11,6 +11,26 @@ Set WorldColor 255 255 255
 Set CameraPos -7 0 3
 Set CameraForward 1 0 0
 
+AddObject Sphere {
+    position: 0 -1 0.9
+    radius: 1
+    Material {
+        diffuseColor: 255 0 0
+        specularColor: 255 255 255
+        glossy: 8
+    }
+}
+
+AddObject Sphere {
+    position: 0 1 0.9
+    radius: 1
+    Material {
+        diffuseColor: 0 255 0
+        specularColor: 255 255 255
+        glossy: 8
+    }
+}
+
 AddObject Triangle {
     A: 0 -1 2
     B: 0 1 2

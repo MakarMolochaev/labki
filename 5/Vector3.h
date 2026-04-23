@@ -24,6 +24,10 @@ public:
         return Vector3(X - other.X, Y - other.Y, Z - other.Z);
     }
 
+    Vector3 operator-() const {
+        return Vector3(-X, -Y, -Z);
+    }
+
     Vector3 operator*(const float mult) const {
         return Vector3(X * mult, Y * mult, Z * mult);
     }

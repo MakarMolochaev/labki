@@ -284,3 +284,12 @@ void Scene::UpdateDirections(Vector3& forward) {
     std::cout << "Camera directions updated:\nForward: " << this->CameraForward.ToString() 
     << "\nRight: " << this->CameraRight.ToString() << "\nUp: " << this->CameraUp.ToString() << "\n";
 }
+
+#include "ObjLoader.h"
+
+void Scene::AddModel(const std::string& filename, Material mat, Vector3 delta){
+    std::vector<std::unique_ptr<Triangle>> triangles = LoadOBJ(filename,  mat, delta);
+    for(auto& t : triangles) {
+        this->AddObject(std::move(t));
+    }
+}
