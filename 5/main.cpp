@@ -2,9 +2,9 @@
 #include <memory>
 #include "Scene.h"
 
-int main() {
+int main(int argc, char** argv) {
     Scene scene = Scene();
-    scene.LoadScene("scene1.txt");
+    scene.LoadScene("scene2.txt");
     scene.Render();
     return 0;
 }

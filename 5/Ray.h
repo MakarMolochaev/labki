@@ -9,5 +9,5 @@ public:
 
     Ray(Vector3 point, Vector3 direction) : start(point), dir(direction) {}
 
-    Vector3 Travel(float t) { return start + dir * t; }
+    Vector3 Travel(float t) const { return start + dir * t; }
 };

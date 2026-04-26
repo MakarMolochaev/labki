@@ -4,7 +4,7 @@
 
 class Vector3 {
 public:
-    float X = 1, Y = 1, Z = 1;
+    float X = 0, Y = 0, Z = 0;
     Vector3() {}
     Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
 
@@ -44,7 +44,7 @@ public:
         Z /= length;
     }
 
-    std::string ToString() {
+    std::string ToString() const {
         return "(" + std::to_string(this->X) + ", " + std::to_string(this->Y) + ", " + std::to_string(this->Z) + ")";
     }
 

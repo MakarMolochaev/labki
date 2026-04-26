@@ -6,11 +6,9 @@
 #include "Vector3.h"
 #include "Ray.h"
 
-IntersectResult Triangle::Intersect(Ray ray) const {
-    Vector3 E1 = this->B - this->A;
-    Vector3 E2 = this->C - this->A;
-    Vector3 P = Vector3::Cross(ray.dir, E2);
-    float det = Vector3::Dot(E1, P);
+IntersectResult Triangle::Intersect(const Ray& ray) const {
+    Vector3 P = Vector3::Cross(ray.dir, this->E2);
+    float det = Vector3::Dot(this->E1, P);
     if(std::abs(det) <= 0.000001){
         return IntersectResult(false);
     }
@@ -21,16 +19,15 @@ IntersectResult Triangle::Intersect(Ray ray) const {
     if(u < 0 || u > 1){
         return IntersectResult(false);
     }
-    Vector3 Q = Vector3::Cross(T, E1);
+    Vector3 Q = Vector3::Cross(T, this->E1);
     float v = Vector3::Dot(ray.dir, Q) * inv_det;
     if(v < 0 || u + v > 1) {
         return IntersectResult(false);
     }
-    float t = Vector3::Dot(E2, Q) * inv_det;
+    float t = Vector3::Dot(this->E2, Q) * inv_det;
 
     if(t > 0) {
-        Vector3 normal = Vector3::Cross(E1, E2);
-        return IntersectResult(true, ray.Travel(t), (Vector3::Dot(ray.dir, normal) > 0) ? normal * -1.0f : normal, t);
+        return IntersectResult(true, ray.Travel(t), (Vector3::Dot(ray.dir, this->normal) > 0) ? this->normal * -1.0f : this->normal, t);
     }
 
     return IntersectResult(false);
@@ -74,11 +71,21 @@ std::unique_ptr<Object> Triangle::Instantiate(std::ifstream& inputStream) const 
         inputStream >> cmd;
     }
 
+    result->Precalculate();
+
     return result;
+}
+
+void Triangle::Precalculate() {
+    this->E1 = this->B - this->A;
+    this->E2 = this->C - this->A;
+    this->normal = Vector3::Cross(this->E1, this->E2);
 }
 
 Triangle::Triangle(Vector3 a, Vector3 b, Vector3 c) {
     this->A = a;
     this->B = b;
     this->C = c;
+
+    this->Precalculate();
 }

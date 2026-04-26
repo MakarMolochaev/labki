@@ -6,14 +6,21 @@
 #include "Vector3.h"
 #include "Ray.h"
 
-IntersectResult Sphere::Intersect(Ray ray) const {
+IntersectResult Sphere::Intersect(const Ray& ray) const {
     Vector3 OC = ray.start - this->position;
     float B = Vector3::Dot(ray.dir, OC) * 2.0f;
     float D = B * B - 4 * OC.SquareLength() + 4.0f * this->radius * this->radius;
     if(D >= 0) {
-        float t = ((-B - sqrt(D)) / 2);
-        Vector3 intersectionPoint = ray.start + ray.dir * t;
-        Vector3 normal = (intersectionPoint - this->position).Normalized();
+        float t = -B / 2.0;
+        float normalMultiplier = 1.0f;
+        if ((ray.start - this->position).Length() < this->radius) {
+            t += sqrt(D) / 2.0;
+            normalMultiplier = -1.0f;
+        } else {
+            t -= sqrt(D) / 2.0;
+        }
+        Vector3 intersectionPoint = ray.Travel(t);
+        Vector3 normal = (intersectionPoint - this->position).Normalized() * normalMultiplier;
         return IntersectResult(true, intersectionPoint, normal, t);
     } else {
         return IntersectResult(false);

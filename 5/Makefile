@@ -297,6 +297,30 @@ Sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Sphere.cpp.s
 .PHONY : Sphere.cpp.s
 
+Tetrahedron.o: Tetrahedron.cpp.o
+.PHONY : Tetrahedron.o
+
+# target to build an object file
+Tetrahedron.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Tetrahedron.cpp.o
+.PHONY : Tetrahedron.cpp.o
+
+Tetrahedron.i: Tetrahedron.cpp.i
+.PHONY : Tetrahedron.i
+
+# target to preprocess a source file
+Tetrahedron.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Tetrahedron.cpp.i
+.PHONY : Tetrahedron.cpp.i
+
+Tetrahedron.s: Tetrahedron.cpp.s
+.PHONY : Tetrahedron.s
+
+# target to generate assembly for a file
+Tetrahedron.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Tetrahedron.cpp.s
+.PHONY : Tetrahedron.cpp.s
+
 Triangle.o: Triangle.cpp.o
 .PHONY : Triangle.o
 
@@ -399,6 +423,9 @@ help:
 	@echo "... Sphere.o"
 	@echo "... Sphere.i"
 	@echo "... Sphere.s"
+	@echo "... Tetrahedron.o"
+	@echo "... Tetrahedron.i"
+	@echo "... Tetrahedron.s"
 	@echo "... Triangle.o"
 	@echo "... Triangle.i"
 	@echo "... Triangle.s"

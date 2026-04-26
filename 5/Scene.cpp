@@ -63,7 +63,7 @@ void Scene::Render() {
     std::cout << "Render started\n";
     std::cout << "Memory used: " << Width * Height * (SSAA * SSAA) * 3 * 4 / 1000000.0 << "MB\n";
     
-    omp_set_num_threads(16);
+    omp_set_num_threads(this->Threads);
     float aspectRatio = (float)Width / (float)Height;
     CameraForward.Normalize();
 
@@ -83,12 +83,11 @@ void Scene::Render() {
 
     std::atomic<bool> finished{false};
     std::thread progress([&]() {
-        const int64_t barWidth = 40;
         while (!finished) {
             float pct = 100.0f * pixelsDone / totalPixels;
-            int pos = barWidth * pixelsDone / totalPixels;
+            int pos = 40 * pixelsDone / totalPixels;
             std::cout << "\rRendering: [";
-            for (int i = 0; i < barWidth; ++i)
+            for (int i = 0; i < 40; ++i)
                 std::cout << (i < pos ? "█" : "░");
             std::cout << "] " << std::fixed << std::setprecision(1) << pct << "%   " << std::flush;
             std::this_thread::sleep_for(std::chrono::milliseconds(16));
@@ -221,7 +220,7 @@ Color Scene::Trace(Ray &ray, int reflectDepth)
         
         Vector3 reflectDir = ray.dir - resultNormal * 2.0f * Vector3::Dot(ray.dir, resultNormal);
         reflectDir.Normalize();
-        Ray reflectRay(impactPoint + resultNormal * 0.0002f, reflectDir);
+        Ray reflectRay(impactPoint + resultNormal * 0.001f, reflectDir);
         Color reflected = Trace(reflectRay, reflectDepth - 1) * resultMaterial.specularColor;
         //resultColor = resultColor + reflected * resultMaterial.specularColor / (1.0f + (float)Bounces);
         //resultColor = resultColor / (1.0f + (float)Bounces);
@@ -241,7 +240,8 @@ void Scene::LoadScene(std::string filename) {
     factory.RegisterType<Sphere>("Sphere");
     factory.RegisterType<Plane>("Plane");
     factory.RegisterType<Triangle>("Triangle");
-    
+    factory.RegisterType<Tetrahedron>("Tetrahedron");
+
     std::ifstream input;
     input.open(filename);
     
@@ -257,6 +257,9 @@ void Scene::LoadScene(std::string filename) {
             } else if (cmd == "Height") {
                 input >> cmd;
                 this->Height = std::stoi(cmd);
+            } else if (cmd == "Threads") {
+                input >> cmd;
+                this->Threads = std::stoi(cmd);
             } else if (cmd == "SSAA") {
                 input >> cmd;
                 this->SSAA = std::stoi(cmd);

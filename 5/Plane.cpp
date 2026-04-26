@@ -8,7 +8,7 @@
 #include <cmath>
 #include <limits>
 
-IntersectResult Plane::Intersect(Ray ray) const {
+IntersectResult Plane::Intersect(const Ray& ray) const {
     if (std::abs(ray.dir.Z) < std::numeric_limits<float>::epsilon()) {
         return IntersectResult(false);
     }

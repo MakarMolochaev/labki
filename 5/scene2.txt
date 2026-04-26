@@ -6,27 +6,17 @@ Set SSAA_Jitter Enabled
 Set AO Enabled
 Set AOsize 0.2
 Set Shadows Enabled
-Set Bounces 0
+Set Bounces 1
 
 Set WorldColor 255 255 255
 Set CameraPos -7 0 3
 Set CameraForward 1 0 0
 
 AddObject Sphere {
-    position: 0 -1 0.9
-    radius: 1
+    position: -8 0 0
+    radius: 10
     Material {
         diffuseColor: 255 0 0
-        specularColor: 255 255 255
-        glossy: 8
-    }
-}
-
-AddObject Sphere {
-    position: 0 1 0.9
-    radius: 1
-    Material {
-        diffuseColor: 0 255 0
         specularColor: 255 255 255
         glossy: 8
     }
@@ -39,9 +29,25 @@ AddObject Tetrahedron {
     D: 0 -3 2
     Material {
         diffuseColor: 255 255 0
-        specularColor: 255 255 255
+        specularColor: 0 0 0
         glossy: 64
     }
+}
+
+AddObject Sphere {
+    position: -1 2 1
+    radius: 1
+    Material {
+        diffuseColor: 0 0 255
+        specularColor: 255 255 255
+        glossy: 8
+    }
+}
+
+AddLight {
+    position: -5 -3 1
+    color: 255 255 255
+    intensity: 1
 }
 
 AddObject Plane {
@@ -52,22 +58,4 @@ AddObject Plane {
         specularColor: 0 0 0
         glossy: 4
     }
-}
-
-AddLight {
-    position: 3 -4 2
-    color: 0 255 255
-    intensity: 2
-}
-
-AddLight {
-    position: 3 2 2
-    color: 255 0 255
-    intensity: 4
-}
-
-AddLight {
-    position: -3 -3 4
-    color: 255 255 255
-    intensity: 0.5
 }

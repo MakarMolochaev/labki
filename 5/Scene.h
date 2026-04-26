@@ -17,6 +17,7 @@ public:
 
     unsigned int Width = 1920;
     unsigned int Height = 1080;
+    unsigned int Threads = 16;
     float PlaneDistance = 1;
     Vector3 CameraPosition = Vector3(-7, 0, 3);
     Vector3 CameraForward = Vector3(1, 0, 0).Normalized();
