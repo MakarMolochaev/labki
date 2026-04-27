@@ -5,6 +5,7 @@
 #include <atomic>
 #include <iomanip>
 #include "Scene.h"
+#include "ProgressBar.h"
 #include "Color.h"
 #include "ObjectFactory.h"
 #include "BMPWriter.h"
@@ -79,21 +80,8 @@ void Scene::Render() {
         }
     }
 
-    std::atomic<int64_t> pixelsDone{0};
-
-    std::atomic<bool> finished{false};
-    std::thread progress([&]() {
-        while (!finished) {
-            float pct = 100.0f * pixelsDone / totalPixels;
-            int pos = 40 * pixelsDone / totalPixels;
-            std::cout << "\rRendering: [";
-            for (int i = 0; i < 40; ++i)
-                std::cout << (i < pos ? "█" : "░");
-            std::cout << "] " << std::fixed << std::setprecision(1) << pct << "%   " << std::flush;
-            std::this_thread::sleep_for(std::chrono::milliseconds(16));
-        }
-        std::cout << "\rRendering: [████████████████████████████████████████] 100.0% - Done.\n";
-    });
+    ProgressBar bar(totalPixels);
+    bar.Start();
 
     auto t0 = std::chrono::steady_clock::now();
     
@@ -108,11 +96,11 @@ void Scene::Render() {
         Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
         
         colorBuffer[index] = Trace(ray, this->Bounces);
-        pixelsDone.fetch_add(1, std::memory_order_relaxed);
+        bar.Increment();
     }
     
-    finished = true;
-    progress.join();
+    bar.Stop();
+
     double elapsedTime = std::chrono::duration<double, std::milli>(std::chrono::steady_clock::now() - t0).count();
     std::cout << "Render time: " << elapsedTime / 1000.0 << " sec\n"; 
     
