@@ -15,7 +15,7 @@ IntersectResult Plane::Intersect(const Ray& ray) const {
 
     float t = (this->position.Z - ray.start.Z) / ray.dir.Z;
 
-    if (t < 0.001f || t > 100000.0f) {
+    if (t < 0.001f || t > 1000000.0f) {
         return IntersectResult(false);
     }
 

@@ -30,12 +30,12 @@ struct BMPInfoHeader {
 };
 #pragma pack(pop)
 
-int WriteBMP(unsigned width, unsigned height, const std::vector<Color>& colorBuffer) {
+int WriteBMP(std::string filename, unsigned width, unsigned height, const std::vector<Color>& colorBuffer) {
     if (colorBuffer.size() != static_cast<size_t>(width) * height) {
         return -1;
     }
 
-    std::cout << "Writing to file\n";
+    std::cout << "Saving to '" << filename << "'\n";
 
     int rowStride = ((width * 3 + 3) & ~3);
     size_t imageDataSize = static_cast<size_t>(rowStride) * height;
@@ -64,7 +64,7 @@ int WriteBMP(unsigned width, unsigned height, const std::vector<Color>& colorBuf
         }
     }
 
-    std::ofstream outFile("output.bmp", std::ios::binary | std::ios::out);
+    std::ofstream outFile(filename, std::ios::binary | std::ios::out);
     if (!outFile) return -1;
 
     outFile.write(reinterpret_cast<const char*>(&fileHeader), sizeof(fileHeader));

@@ -70,3 +70,18 @@ public:
     IntersectResult Intersect(const Ray& ray) const override;
     std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
 };
+
+class Box : public Object {
+public:
+    Box() = default;
+    
+    Vector3 size;
+    Box(Vector3 pos, Vector3 size, Material mat) {
+        this->size = size;
+        position = pos;
+        material = mat;
+    }
+
+    IntersectResult Intersect(const Ray& ray) const override;
+    std::unique_ptr<Object> Instantiate(std::ifstream& inputStream) const override;
+};

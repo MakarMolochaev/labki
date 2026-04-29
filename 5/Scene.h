@@ -49,7 +49,7 @@ public:
 
     bool RayCast(const Ray& ray, float maxDistance = std::numeric_limits<float>::infinity(), float* outT = nullptr) const;
 
-    void Render();
+    void Render(std::string filename);
 
     Color Trace(Ray &ray, int reflectDepth = 0);
 

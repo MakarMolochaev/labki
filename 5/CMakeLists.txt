@@ -15,6 +15,7 @@ set(SOURCES
     Plane.cpp
     Triangle.cpp
     Tetrahedron.cpp
+    Box.cpp
     Scene.cpp
     Color.cpp
     ObjectFactory.cpp

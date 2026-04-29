@@ -129,6 +129,30 @@ program/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/build
 .PHONY : program/fast
 
+Box.o: Box.cpp.o
+.PHONY : Box.o
+
+# target to build an object file
+Box.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Box.cpp.o
+.PHONY : Box.cpp.o
+
+Box.i: Box.cpp.i
+.PHONY : Box.i
+
+# target to preprocess a source file
+Box.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Box.cpp.i
+.PHONY : Box.cpp.i
+
+Box.s: Box.cpp.s
+.PHONY : Box.s
+
+# target to generate assembly for a file
+Box.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/program.dir/build.make CMakeFiles/program.dir/Box.cpp.s
+.PHONY : Box.cpp.s
+
 Color.o: Color.cpp.o
 .PHONY : Color.o
 
@@ -402,6 +426,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... program"
+	@echo "... Box.o"
+	@echo "... Box.i"
+	@echo "... Box.s"
 	@echo "... Color.o"
 	@echo "... Color.i"
 	@echo "... Color.s"

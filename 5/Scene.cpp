@@ -60,7 +60,7 @@ bool Scene::RayCast(const Ray& ray, float maxDistance, float* outT) const
     return false;
 }
 
-void Scene::Render() {
+void Scene::Render(std::string filename) {
     std::cout << "Render started\n";
     std::cout << "Memory used: " << Width * Height * (SSAA * SSAA) * 3 * 4 / 1000000.0 << "MB\n";
     
@@ -96,6 +96,7 @@ void Scene::Render() {
         Ray ray = Perspective(i, j, aspectRatio, offsetX, offsetY);
         
         colorBuffer[index] = Trace(ray, this->Bounces);
+
         bar.Increment();
     }
     
@@ -131,7 +132,7 @@ void Scene::Render() {
         }
     }
 
-    WriteBMP(Width, Height, resultColorBuffer);
+    WriteBMP(filename, Width, Height, resultColorBuffer);
 }
 
 Color Scene::Trace(Ray &ray, int reflectDepth)
@@ -140,7 +141,7 @@ Color Scene::Trace(Ray &ray, int reflectDepth)
         return Color(0, 0, 0);
     }
 
-    float minT = 100000.0f;
+    float minT = 1000000.0f;
     Material resultMaterial;
     Vector3 resultNormal;
     Vector3 impactPoint;
@@ -229,6 +230,7 @@ void Scene::LoadScene(std::string filename) {
     factory.RegisterType<Plane>("Plane");
     factory.RegisterType<Triangle>("Triangle");
     factory.RegisterType<Tetrahedron>("Tetrahedron");
+    factory.RegisterType<Box>("Box");
 
     std::ifstream input;
     input.open(filename);
