@@ -1,12 +1,12 @@
 Set Threads 16
 Set Width 1920
 Set Height 1080
-Set SSAA 4
+Set SSAA 2
 Set SSAA_Jitter Enabled
 Set AO Enabled
 Set AOsize 0.2
 Set Shadows Enabled
-Set Bounces 0
+Set Bounces 2
 
 Set WorldColor 255 255 255
 Set CameraPos -7 0 3
@@ -40,7 +40,7 @@ AddObject Tetrahedron {
     Material {
         diffuseColor: 255 255 0
         specularColor: 255 255 255
-        glossy: 64
+        glossy: 12
     }
 }
 
@@ -51,8 +51,8 @@ AddObject Box {
     sizeZ: 1
     Material {
         diffuseColor: 0 255 255
-        specularColor: 25 25 25
-        glossy: 64
+        specularColor: 255 255 255
+        glossy: 32
     }
 }
 
