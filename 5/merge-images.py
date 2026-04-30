@@ -9,7 +9,18 @@ output_video = sys[2] if (len(sys.argv) > 2) else 'output.mp4'
 fps = 24
 
 images = sorted([f for f in os.listdir(input_dir) if f.endswith(('.bmp'))])
-writer = imageio.get_writer(output_video, fps=fps)
+writer = imageio.get_writer(
+    output_video,
+    fps=fps,
+    codec='libx264',
+    quality=10,
+    output_params=[
+        '-crf', '18',
+        '-preset', 'medium',
+        '-pix_fmt', 'yuv420p'
+    ]
+)
+
 for img_name in images:
     img = imageio.v2.imread(os.path.join(input_dir, img_name))
     writer.append_data(img)
